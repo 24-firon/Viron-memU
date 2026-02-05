@@ -159,35 +159,25 @@ _Die Daten sind physisch isoliert (verschiedene Tabellen)._
 
 ---
 
-## 10. Proaktivität & Der "Wecker"
+## 10. Proaktivität & Der "Wecker" (Trigger)
 
 Du hast gefragt: _"Kann er mich am 3. erinnern?"_
 **Antwort: Ja, aber anders als ein Handy-Wecker.**
 
-- **Klassischer Wecker:** Handy klingelt um 12:00 Uhr (Hardware-Interrupt).
-- **KI-Wecker (Loop):** Das Skript `proactive.py` läuft in einer Endlosschleife.
-  1.  Es wacht auf (z.B. alle 5 Minuten).
-  2.  Es prüft: "Habe ich Todos für _jetzt_?" (Es vergleicht Zeitstempel im Gedächtnis).
-  3.  Wenn Ja: Es initiiert den Chat von sich aus ("Hey, du hast jetzt den Termin!").
+### Wie es funktioniert:
 
-**Voraussetzung:** Das Skript (`python proactive.py`) muss dauerhaft laufen (z.B. im Hintergrund oder auf einem Server). Wenn du den PC ausmachst, schläft auch der Wecker.
+1.  **Endlosschleife (Loop):** (Aktuell in `proactive.py`) Ich wache z.B. alle 5 Minuten auf.
+    - _Check:_ "Gibt es einen Task für jetzt?"
+    - _Action:_ Ich schreibe dich an ("Hey, Termin jetzt!").
+2.  **API / Webhooks:** Externe Dienste pingen mich an.
+3.  **Dateisystem:** (Watcher) Ich reagiere auf Datei-Änderungen.
 
----
+_Wichtig:_ Der Loop (`python proactive.py`) muss laufen. Wenn der PC aus ist, schlafe ich.
 
-## 7. Proaktivität & Trigger (Wie laufe ich?)
+### Kann ich auf echte Dateien zugreifen? (Sandbox)
 
-Ich bin nicht nur "Reagierer". Ich kann getriggert werden durch:
-
-1.  **Endlosschleife (Loop):** (Aktuell in `proactive.py`) Ich wache alle X Minuten auf, prüfe Todos/Mails.
-2.  **API / Webhooks:** (Muss konfiguriert werden) Externe Dienste pingen mich an (`POST /v1/chat/completions`).
-3.  **Dateisystem-Events:** (File Watcher) Ich reagiere, wenn du eine Datei speicherst.
-4.  **Cron-Jobs:** Zeitgesteuerte Aufgaben (z.B. "Jeden Morgen um 8:00").
-
----
-
-### Erweiterung geplant?
-
-Um dem Bot "Hände" zu geben (Dateien schreiben, Terminal), müssen wir **Tools** in Python definieren (`src/memu/tools`).
-Aktuell ist er ein "Gehirn im Tank" (reiner Denker).
+- **Standard:** Nein (Ich bin im Container gefangen).
+- **God Mode:** Wir können deinen Projekt-Ordner mounten. Dann kann ich `main.py` direkt ändern.
+  - _Sicherheit:_ Das ist riskant, aber mächtig.
 
 ---
