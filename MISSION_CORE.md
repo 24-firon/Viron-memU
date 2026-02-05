@@ -123,6 +123,57 @@ Ja. Damit WebUI oder der Bot echte Dateien im Repo ändern darf, müssen wir:
 
 ---
 
+## 8. Hybrid-Gedächtnis & Pointer-System (Die "Bibliotheks-Logik")
+
+Damit wir Token sparen und nicht immer _alles_ lesen, nutzen wir ein **Pointer-System (Verweise)**.
+
+### Wie es funktioniert:
+
+1.  **RAG (Der Katalog):** In der Vektor-Datenbank steht nur eine **Zusammenfassung** + **Pfad**.
+    - _Eintrag:_ "Detaillierte Analyse der Q3-Finanzen."
+    - _Pointer:_ `file:///memory-files/finance_q3.md`
+2.  **Entscheidung (Der Bot):** Wenn du fragst "Wie waren die Finanzen?", findet der Bot den Katalog-Eintrag.
+3.  **Abruf (Optional):**
+    - Reicht die Zusammenfassung? -> Er antwortet sofort.
+    - Brauchst du Details? -> Er nutzt das Tool `read_file` und holt sich _erst dann_ die echte Datei.
+    - **Vorteil:** Wir laden nicht unnötig Hunderte Zeilen Text, wenn du nur eine grobe Info willst.
+
+---
+
+## 9. Gehirne wechseln (Multi-DB Switch)
+
+Wir trennen Arbeit und Privates strikt durch **Datenbank-Namen**.
+
+### Umschalten (Anleitung für dich)
+
+Sag dem Bot einfach: _"Wechsle in den Projekt-Modus"_ oder _"Privat-Modus"_.
+Der Bot ändert dann intern den Parameter `db_name` in der Factory:
+
+```python
+# Code-Logik (Hintergrund)
+factory.create_memory_instance(db_name="memu_work")   # Für Projekt A
+factory.create_memory_instance(db_name="memu_private") # Für Privates
+```
+
+_Die Daten sind physisch isoliert (verschiedene Tabellen)._
+
+---
+
+## 10. Proaktivität & Der "Wecker"
+
+Du hast gefragt: _"Kann er mich am 3. erinnern?"_
+**Antwort: Ja, aber anders als ein Handy-Wecker.**
+
+- **Klassischer Wecker:** Handy klingelt um 12:00 Uhr (Hardware-Interrupt).
+- **KI-Wecker (Loop):** Das Skript `proactive.py` läuft in einer Endlosschleife.
+  1.  Es wacht auf (z.B. alle 5 Minuten).
+  2.  Es prüft: "Habe ich Todos für _jetzt_?" (Es vergleicht Zeitstempel im Gedächtnis).
+  3.  Wenn Ja: Es initiiert den Chat von sich aus ("Hey, du hast jetzt den Termin!").
+
+**Voraussetzung:** Das Skript (`python proactive.py`) muss dauerhaft laufen (z.B. im Hintergrund oder auf einem Server). Wenn du den PC ausmachst, schläft auch der Wecker.
+
+---
+
 ## 7. Proaktivität & Trigger (Wie laufe ich?)
 
 Ich bin nicht nur "Reagierer". Ich kann getriggert werden durch:
