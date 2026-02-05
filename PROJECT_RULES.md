@@ -1,18 +1,12 @@
 # PROJEKT-REGELN (VIRON-MEMU)
 
-## 1. DIE "NACHFRAGE"-REGEL (Priority Alpha)
+## 1. ORDNUNG
 
-**Wenn Unklarheit besteht oder eine Entscheidung getroffen werden muss, die nicht explizit definiert ist: FRAGE DEN USER.**
+- Das Repo bleibt strikt im Root `C:\Workspace\Repos\memU`.
+- Der lokale Ordner heißt `memU`.
+- Keine unnötigen Unterordner wie `Setup` erstellen, es sei denn explizit gefordert.
 
-- **Keine eigenmächtigen Entscheidungen** über Ordnernamen, Architektur oder Strategie.
-- **Keine Annahmen** treffen, wenn Informationen fehlen.
-- Lieber einmal zu viel fragen als einmal falsch handeln.
+## 2. DOCKER-INFRASTRUKTUR
 
-## 2. SPRACHE
-
-- Die Kommunikation erfolgt strikt auf **DEUTSCH**.
-
-## 3. ORDNUNG
-
-- Das Repo bleibt im Root `C:\Workspace\Repos\memU`.
-- Keine unnötigen Unterordner wie `Setup` erstellen, wenn nicht explizit gefordert.
+- `docker-compose.yml` und `.env` liegen im Root.
+- Umgebung in `memU.code-workspace` definieren.

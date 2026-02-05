@@ -23,8 +23,8 @@ services:
       POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
 
     ports:
-      # Bind to localhost only (security: not exposed to network)
-      - "127.0.0.1:5432:5432"
+      # Custom Port 5435 (Non-Standard)
+      - "127.0.0.1:5435:5432"
 
     volumes:
       # Persistent storage for database files
@@ -50,7 +50,8 @@ services:
     container_name: memu_vllm
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      # Custom Port 8005 (Non-Standard)
+      - "8005:8000"
     volumes:
       - ~/.cache/huggingface:/root/.cache/huggingface
     environment:
@@ -63,6 +64,22 @@ services:
               count: 1
               capabilities: [gpu]
     command: "--model Qwen/Qwen2.5-14B-Instruct --port 8000 --host 0.0.0.0"
+    networks:
+      - memu_network
+
+  # Chat Interface (The "Cockpit")
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: memu_webui
+    restart: unless-stopped
+    ports:
+      # Custom Port 3005 (Non-Standard)
+      - "3005:8080"
+    environment:
+      - OPENAI_API_BASE_URL=http://memu-vllm:8000/v1
+      - OPENAI_API_KEY=sk-no-key-required
+    volumes:
+      - ./webui-data:/app/backend/data
     networks:
       - memu_network
 

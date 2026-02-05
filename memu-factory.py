@@ -35,10 +35,10 @@ class MemUConfig:
     """Central configuration class for memU deployment."""
     
     DB_HOST = "127.0.0.1"
-    DB_PORT = "5432"
+    DB_PORT = "5435" # Custom Port
     DB_USER = "memu_admin"
     DB_PASSWORD = os.getenv("DB_PASSWORD", "memu_secure_password_2026")
-    DB_NAME = "memu_production"
+    DB_NAME = "memu_production" # Default (can be overridden)
     
     @property
     def DATABASE_URL(self) -> str:
@@ -47,7 +47,7 @@ class MemUConfig:
     PROVIDERS = {
         "vllm": {
             "name": "vLLM Local Server",
-            "base_url": f"{os.getenv('VLLM_HOST', 'http://localhost:8000')}/v1",
+            "base_url": f"{os.getenv('VLLM_HOST', 'http://localhost:8005')}/v1", # Custom Port
             "api_key": "EMPTY",
             "chat_model": "qwen2.5-14b-instruct",
             "timeout": 120.0,
