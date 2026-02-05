@@ -1,0 +1,35 @@
+# ============================================
+# memU Production Environment Configuration
+# ============================================
+# Copy this file to .env and fill in your actual values
+# NEVER commit .env to version control!
+
+# --- DATABASE CONFIGURATION ---
+DB_PASSWORD=memu_secure_password_2026
+
+# --- LLM PROVIDER API KEYS ---
+# OpenRouter (for cloud fallback)
+OPENROUTER_API_KEY=sk-or-v1-your_key_here
+
+# OpenAI (for embeddings - recommended for stability)
+OPENAI_API_KEY=sk-proj-your_key_here
+
+# Google AI (optional)
+GOOGLE_API_KEY=AIzaSy...your_key_here
+
+# --- LOCAL MODEL ENDPOINTS ---
+# Ollama (default local installation)
+OLLAMA_HOST=http://localhost:11434
+
+# vLLM (if running separate vLLM server)
+VLLM_HOST=http://localhost:8000
+
+# --- MEMU CONFIGURATION ---
+# Log level: DEBUG, INFO, WARNING, ERROR
+MEMU_LOG_LEVEL=INFO
+
+# Memory file export path (optional)
+MEMU_MEMORY_FILES_PATH=./memory-files
+
+# User ID for single-user mode (optional)
+DEFAULT_USER_ID=poweruser_01

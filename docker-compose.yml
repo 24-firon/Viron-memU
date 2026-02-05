@@ -1,0 +1,76 @@
+# memU Production Infrastructure
+# PostgreSQL 16 with pgvector extension for AI Memory Storage
+#
+# Usage:
+#   docker-compose up -d
+#   docker-compose ps  # Check health status
+#   docker-compose logs -f  # View logs
+#   docker-compose down  # Stop and remove containers
+
+services:
+  memu-postgres:
+    image: pgvector/pgvector:pg16
+    container_name: memu_production_db
+    restart: unless-stopped
+
+    environment:
+      # Database credentials
+      POSTGRES_USER: memu_admin
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-memu_secure_password_2026}
+      POSTGRES_DB: memu_production
+
+      # Performance tuning for vector operations
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+
+    ports:
+      # Bind to localhost only (security: not exposed to network)
+      - "127.0.0.1:5432:5432"
+
+    volumes:
+      # Persistent storage for database files
+      - ./pgdata:/var/lib/postgresql/data
+      # Optional: Custom PostgreSQL config
+      # - ./postgres.conf:/etc/postgresql/postgresql.conf
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U memu_admin -d memu_production"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+    # Shared memory size critical for parallel vector queries
+    shm_size: 1g
+
+    networks:
+      - memu_network
+
+  memu-vllm:
+    image: vllm/vllm-openai:latest
+    container_name: memu_vllm
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: "--model Qwen/Qwen2.5-14B-Instruct --port 8000 --host 0.0.0.0"
+    networks:
+      - memu_network
+
+networks:
+  memu_network:
+    driver: bridge
+    name: memu_prod_network
+
+volumes:
+  pgdata:
+    driver: local

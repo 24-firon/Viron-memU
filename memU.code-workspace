@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "C:/Users/bachl/.gemini"
+    }
+  ],
+  "settings": {
+    "git.enabled": true,
+    "git.autoRepositoryDetection": true,
+    "git.scanRepositories": ["../memu", "C:/Users/bachl/.gemini"],
+  },
+}
