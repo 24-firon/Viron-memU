@@ -206,26 +206,3 @@ factory.create_memory_instance(db_name="memu_private") # Für Privates
 _Die Daten sind physisch isoliert (verschiedene Tabellen)._
 
 ---
-
-## 10. Proaktivität & Der "Wecker" (Trigger)
-
-Du hast gefragt: _"Kann er mich am 3. erinnern?"_
-**Antwort: Ja, aber anders als ein Handy-Wecker.**
-
-### Wie es funktioniert:
-
-1.  **Endlosschleife (Loop):** (Aktuell in `proactive.py`) Ich wache z.B. alle 5 Minuten auf.
-    - _Check:_ "Gibt es einen Task für jetzt?"
-    - _Action:_ Ich schreibe dich an ("Hey, Termin jetzt!").
-2.  **API / Webhooks:** Externe Dienste pingen mich an.
-3.  **Dateisystem:** (Watcher) Ich reagiere auf Datei-Änderungen.
-
-_Wichtig:_ Der Loop (`python proactive.py`) muss laufen. Wenn der PC aus ist, schlafe ich.
-
-### Kann ich auf echte Dateien zugreifen? (Sandbox)
-
-- **Standard:** Nein (Ich bin im Container gefangen).
-- **God Mode:** Wir können deinen Projekt-Ordner mounten. Dann kann ich `main.py` direkt ändern.
-  - _Sicherheit:_ Das ist riskant, aber mächtig.
-
----
