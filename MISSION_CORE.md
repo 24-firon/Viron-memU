@@ -152,14 +152,15 @@ _Wichtig:_ Der Loop (`python proactive.py`) muss laufen. Wenn der PC aus ist, sc
 Du hast gefragt: _"Kann er mich am 3. erinnern?"_
 **Antwort: Ja, aber anders als ein Handy-Wecker.**
 
-### Wie es funktioniert:
+### Wie es funktioniert (Community Best Practices):
 
-1.  **Endlosschleife (Loop):** (Aktuell in `proactive.py`) Ich wache z.B. alle 5 Minuten auf.
-    - _Check:_ "Gibt es einen Task für jetzt?"
-    - _Action:_ Ich schreibe dich an ("Hey, Termin jetzt!").
-2.  **API / Webhooks:** Externe Dienste pingen mich an.
-3.  **Dateisystem:** (Watcher) Ich reagiere auf Datei-Änderungen.
-4.  **Cron-Jobs:** Zeitgesteuerte Aufgaben (z.B. "Jeden Morgen um 8:00").
+1.  **Timer / Cron (Statt Loop):**
+    - _Anti-Pattern:_ `while True: sleep(60)` (Blockiert Ressourcen).
+    - _Best Practice:_ **pg_cron** (in Postgres) oder externer Trigger ruft mich auf.
+2.  **Webhooks (Async Pattern):**
+    - Wenn ein Webhook kommt -> Sofort `200 OK` antworten -> Task in Thread verarbeiten.
+    - _Ziel:_ Nicht den Sender blockieren.
+3.  **Dateisystem (Watcher):** Reagiert auf Datei-Änderungen (Layer 1 Input).
 
 _Wichtig:_ Der Loop (`python proactive.py`) muss laufen. Wenn der PC aus ist, schlafe ich.
 
@@ -175,16 +176,20 @@ _Wichtig:_ Der Loop (`python proactive.py`) muss laufen. Wenn der PC aus ist, sc
 
 Damit wir Token sparen und nicht immer _alles_ lesen, nutzen wir ein **Pointer-System (Verweise)**.
 
-### Wie es funktioniert:
+### Architektur (Layer 1-3):
 
-1.  **RAG (Der Katalog):** In der Vektor-Datenbank steht nur eine **Zusammenfassung** + **Pfad**.
-    - _Eintrag:_ "Detaillierte Analyse der Q3-Finanzen."
-    - _Pointer:_ `file:///memory-files/finance_q3.md`
-2.  **Entscheidung (Der Bot):** Wenn du fragst "Wie waren die Finanzen?", findet der Bot den Katalog-Eintrag.
-3.  **Abruf (Optional):**
-    - Reicht die Zusammenfassung? -> Er antwortet sofort.
-    - Brauchst du Details? -> Er nutzt das Tool `read_file` und holt sich _erst dann_ die echte Datei.
-    - **Vorteil:** Wir laden nicht unnötig Hunderte Zeilen Text, wenn du nur eine grobe Info willst.
+1.  **Layer 1 (Raw):** Echte Dateien (PDF, Bilder, MD) im Filesystem.
+2.  **Layer 2 (Categories):** Summarized Markdown Files (human-readable).
+3.  **Layer 3 (Items):** Vektoren & Fakten in der DB (Pointer System).
+
+_Constraint:_ **Single-Writer-Rule.** Nur EIN Agent schreibt gleichzeitig in die Memory-Files (Race Condition Prevention).
+
+### Wie es funktioniert (Pointer / Lazy Loading):
+
+1.  **RAG (Der Katalog):** In der Vektor-Datenbank stehen nur Pointer (`file:///...`).
+2.  **Entscheidung:** Der LLM sieht den Pointer und entscheidet: "Brauche ich Details?".
+3.  **Abruf (Lazy):** Erst bei Bedarf wird die Markdown-Datei (Layer 2) geladen.
+    - _Vorteil:_ OS-Level Caching nutzt RAM effizient. Kein DB-Overhead.
 
 ---
 
