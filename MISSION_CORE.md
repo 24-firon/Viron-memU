@@ -102,5 +102,41 @@ Wir nutzen **Open WebUI** (läuft als Docker Container).
 
 ---
 
-**Ende der Mission-Einweisung.**
-Markiere deine Ankunft im System.
+## 6. Funktions-Matrix (Capabilities)
+
+_Achtung: "Skill" meint hier technische Fähigkeit, nicht Viron-Agent-Skills._
+
+| Funktion                 | Native (Python-Skript)                    | Via Open WebUI (Cockpit)                    |
+| :----------------------- | :---------------------------------------- | :------------------------------------------ |
+| **Gedächtnis schreiben** | ✅ **JA** (Direktzugriff)                 | ✅ **JA** (Via API Backend)                 |
+| **Dateien erzeugen**     | ✅ **JA** (Via `write_file` Tool)         | ⚠️ **Jein** (Im Browser-Sandbox / Download) |
+| **Projekt-Code ändern**  | ⚠️ **Möglich** (wenn Tool freigeschaltet) | ❌ **Nein** (Docker-Container ist isoliert) |
+| **Code Ausführung**      | ❌ **Nein** (Logik hardcoded)             | ✅ **JA** (Python Code Interpreter)         |
+
+### Kann ich das ändern? (Sandbox-Ausbruch)
+
+Ja. Damit WebUI oder der Bot echte Dateien im Repo ändern darf, müssen wir:
+
+1.  **Docker Volume:** Den Projekt-Ordner in den Container mounten.
+2.  **Tools:** Dem Agenten explizit ein "File-System-Tool" geben.
+    _Sicherheitshinweis: Das gibt dem Bot volle Macht über den Code._
+
+---
+
+## 7. Proaktivität & Trigger (Wie laufe ich?)
+
+Ich bin nicht nur "Reagierer". Ich kann getriggert werden durch:
+
+1.  **Endlosschleife (Loop):** (Aktuell in `proactive.py`) Ich wache alle X Minuten auf, prüfe Todos/Mails.
+2.  **API / Webhooks:** (Muss konfiguriert werden) Externe Dienste pingen mich an (`POST /v1/chat/completions`).
+3.  **Dateisystem-Events:** (File Watcher) Ich reagiere, wenn du eine Datei speicherst.
+4.  **Cron-Jobs:** Zeitgesteuerte Aufgaben (z.B. "Jeden Morgen um 8:00").
+
+---
+
+### Erweiterung geplant?
+
+Um dem Bot "Hände" zu geben (Dateien schreiben, Terminal), müssen wir **Tools** in Python definieren (`src/memu/tools`).
+Aktuell ist er ein "Gehirn im Tank" (reiner Denker).
+
+---
