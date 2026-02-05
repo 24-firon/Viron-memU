@@ -152,15 +152,16 @@ _Wichtig:_ Der Loop (`python proactive.py`) muss laufen. Wenn der PC aus ist, sc
 Du hast gefragt: _"Kann er mich am 3. erinnern?"_
 **Antwort: Ja, aber anders als ein Handy-Wecker.**
 
-### Wie es funktioniert (Community Best Practices):
+### Wie es funktioniert (Aktuell: MVP):
 
-1.  **Timer / Cron (Statt Loop):**
-    - _Anti-Pattern:_ `while True: sleep(60)` (Blockiert Ressourcen).
-    - _Best Practice:_ **pg_cron** (in Postgres) oder externer Trigger ruft mich auf.
-2.  **Webhooks (Async Pattern):**
-    - Wenn ein Webhook kommt -> Sofort `200 OK` antworten -> Task in Thread verarbeiten.
-    - _Ziel:_ Nicht den Sender blockieren.
-3.  **Dateisystem (Watcher):** Reagiert auf Datei-Änderungen (Layer 1 Input).
+1.  **Endlosschleife (Der Loop):**
+    - _Technik:_ Ein Python-Skript läuft im Hintergrund (`while True`).
+    - _Kosten:_ Minimal (wie ein offener Browser-Tab).
+    - _Vorteil:_ Sofort einsatzbereit (keine Cron-Config).
+2.  **Webhooks (Async):** Externe Dienste pingen mich an.
+3.  **Dateisystem:** Watcher reagiert auf Änderungen.
+
+_Zukunftsmusik:_ Später stellen wir auf Cron um. Aktuell reicht der Loop.
 
 _Wichtig:_ Der Loop (`python proactive.py`) muss laufen. Wenn der PC aus ist, schlafe ich.
 
