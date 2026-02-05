@@ -25,9 +25,9 @@ Wir arbeiten in einem **Hybrid-Modus** auf Windows.
 
 - **Pfad:** `docker-compose.yml` (im Root)
 - **Komponenten:**
-  1.  **PostgreSQL + pgvector:** Datenbank für Langzeitgedächtnis (Port 5432).
-  2.  **vLLM:** Lokale KI-Engine (Port 8000), kompatibel mit OpenAI-API.
-  3.  **(Geplant) Open WebUI:** Chat-Interface für den User.
+  1.  **PostgreSQL + pgvector:** Datenbank für Langzeitgedächtnis (Port 5435).
+  2.  **vLLM:** Lokale KI-Engine (Port 8005), kompatibel mit OpenAI-API.
+  3.  **(Geplant) Open WebUI:** Chat-Interface für den User (Port 3005).
 
 ---
 
