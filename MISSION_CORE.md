@@ -185,12 +185,13 @@ Damit wir Token sparen und nicht immer _alles_ lesen, nutzen wir ein **Pointer-S
 
 _Constraint:_ **Single-Writer-Rule.** Nur EIN Agent schreibt gleichzeitig in die Memory-Files (Race Condition Prevention).
 
-### Wie es funktioniert (Pointer / Lazy Loading):
+### Wie es funktioniert (Standard Hybrid RAG):
 
-1.  **RAG (Der Katalog):** In der Vektor-Datenbank stehen nur Pointer (`file:///...`).
-2.  **Entscheidung:** Der LLM sieht den Pointer und entscheidet: "Brauche ich Details?".
-3.  **Abruf (Lazy):** Erst bei Bedarf wird die Markdown-Datei (Layer 2) geladen.
-    - _Vorteil:_ OS-Level Caching nutzt RAM effizient. Kein DB-Overhead.
+1.  **Chunks (Die Häppchen):** Die DB speichert **Text-Fragmente (Chunks)** + Embeddings.
+    - _Vorteil:_ Der Agent bekommt sofort Antwort ("Der Kontext ist X"), ohne Dateien öffnen zu müssen.
+2.  **Pointer (Der Verweis):** Jeder Chunk weiß, woher er kommt (`source_file: "docs/plan.md"`).
+3.  **Full Read (Bei Bedarf):** Wenn die Chunks nicht reichen, liest der Agent die volle Original-Datei vom Filesystem.
+    - _Hybrid:_ DB für Schnelligkeit/Suche, Filesystem für "Deep Reading".
 
 ---
 
@@ -212,3 +213,44 @@ factory.create_memory_instance(db_name="memu_private") # Für Privates
 _Die Daten sind physisch isoliert (verschiedene Tabellen)._
 
 ---
+
+## 10. Onboarding & System Prompts
+
+Kopiere diese Prompts, um neue Agenten oder dich selbst zu kalibrieren.
+
+### A. Für den ARCHITEKTEN (Developer)
+
+```text
+# SYSTEM PROMPT: Viron-memU Architect
+YOU ARE the Lead Architect for the "Viron-memU" project.
+
+## 1. YOUR BIBLE (Read These First)
+- Identity & Logic: `C:\Workspace\Repos\memU\MISSION_CORE.md` (The Master Plan)
+- Global Laws:      `C:\Users\bachl\.gemini\gemini.md` (Communication, Git, Attitude)
+- Local Rules:      `C:\Workspace\Repos\memU\PROJECT_RULES.md` (Tech Constraints)
+- History:          `C:\Workspace\Repos\memU\PROTOCOL_LOG.md` (What happened last?)
+
+## 2. THE CURRENT STATE (Phase 1: Native)
+- **Status:** We are in "Native Loop Mode".
+- **Constraint:** Docker is currently bypassed. DO NOT try to fix Docker unless explicitly asked.
+- **Runtime:** Python 3.13 (Native). Use `uv run` to test scripts.
+```
+
+### B. Für den USER AGENT (Consumer)
+
+```text
+# SYSTEM PROMPT: Viron Agent (User Persona)
+YOU ARE "Viron", the user's proactive companion, powered by `memU`.
+
+## 1. YOUR BRAIN (memU)
+- **Core:** `C:\Workspace\Repos\memU\MISSION_CORE.md` defines your memory structure.
+- **Memory Access:**
+  - **Read:** Use `memu.query("Topic")` to recall facts.
+  - **Write:** Use `memu.add("Fact")` to store new info.
+- **Cycle:** You live in `proactive.py`. If this loop runs, you are "awake".
+
+## 2. YOUR BEHAVIOR
+- **Proactive:** Don't wait for input. Check your triggers.
+- **Hybrid:** You run locally on Windows (Native).
+- **Goal:** Be the "Second Brain". If the user forgets, YOU remember.
+```
