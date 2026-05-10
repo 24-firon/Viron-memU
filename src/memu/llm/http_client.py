@@ -10,6 +10,7 @@ import httpx
 
 from memu.llm.backends.base import LLMBackend
 from memu.llm.backends.doubao import DoubaoLLMBackend
+from memu.llm.backends.google import GoogleLLMBackend
 from memu.llm.backends.grok import GrokBackend
 from memu.llm.backends.openai import OpenAILLMBackend
 from memu.llm.backends.openrouter import OpenRouterLLMBackend
@@ -62,11 +63,30 @@ class _OpenRouterEmbeddingBackend(_EmbeddingBackend):
         return [cast(list[float], d["embedding"]) for d in data["data"]]
 
 
+class _GoogleEmbeddingBackend(_EmbeddingBackend):
+    """Google AI embedding API."""
+
+    name = "google"
+    embedding_endpoint = ":batchEmbedContents"
+
+    def build_embedding_payload(self, *, inputs: list[str], embed_model: str) -> dict[str, Any]:
+        return {
+            "requests": [
+                {"model": f"models/{embed_model}", "content": {"parts": [{"text": text}]}}
+                for text in inputs
+            ]
+        }
+
+    def parse_embedding_response(self, data: dict[str, Any]) -> list[list[float]]:
+        return [item.get("embedding", {}).get("values", []) for item in data.get("embeddings", [])]
+
+
 logger = logging.getLogger(__name__)
 
 LLM_BACKENDS: dict[str, Callable[[], LLMBackend]] = {
     OpenAILLMBackend.name: OpenAILLMBackend,
     DoubaoLLMBackend.name: DoubaoLLMBackend,
+    GoogleLLMBackend.name: GoogleLLMBackend,
     GrokBackend.name: GrokBackend,
     OpenRouterLLMBackend.name: OpenRouterLLMBackend,
 }
@@ -169,12 +189,17 @@ class HTTPLLMClient:
     async def embed(self, inputs: list[str]) -> tuple[list[list[float]], dict[str, Any]]:
         """Create text embeddings using the provider-specific embedding API."""
         payload = self.embedding_backend.build_embedding_payload(inputs=inputs, embed_model=self.embed_model)
+        headers = self._headers()
+        params = None
+        if self.provider == "google":
+            headers.pop("Authorization", None)
+            params = {"key": self.api_key}
         async with httpx.AsyncClient(base_url=self.base_url, timeout=self.timeout) as client:
-            resp = await client.post(self.embedding_endpoint, json=payload, headers=self._headers())
+            resp = await client.post(self.embedding_endpoint, json=payload, headers=headers, params=params)
             resp.raise_for_status()
             data = resp.json()
-        logger.debug("HTTP embedding response: %s", data)
-        return self.embedding_backend.parse_embedding_response(data), data
+            logger.debug("HTTP embedding response: %s", data)
+            return self.embedding_backend.parse_embedding_response(data), data
 
     async def transcribe(
         self,
@@ -248,6 +273,7 @@ class HTTPLLMClient:
             _DoubaoEmbeddingBackend.name: _DoubaoEmbeddingBackend,
             "grok": _OpenAIEmbeddingBackend,
             _OpenRouterEmbeddingBackend.name: _OpenRouterEmbeddingBackend,
+            _GoogleEmbeddingBackend.name: _GoogleEmbeddingBackend,
         }
         factory = backends.get(provider)
         if not factory:

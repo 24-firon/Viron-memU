@@ -1,4 +1,5 @@
 from memu.embedding.backends.base import EmbeddingBackend
+from memu.embedding.backends.google import GoogleEmbeddingBackend
 from memu.embedding.backends.doubao import DoubaoEmbeddingBackend, DoubaoMultimodalEmbeddingInput
 from memu.embedding.backends.openai import OpenAIEmbeddingBackend
 

@@ -84,10 +84,11 @@ class MemUConfig:
     
     # STRICT HYBRID SETUP: Always use OpenAI-compatible embeddings (GPT/Gemini via adapter)
     EMBEDDING_PROVIDER = {
-        "base_url": "https://api.openai.com/v1",
-        "api_key": os.getenv("OPENAI_API_KEY", ""),
-        "model": "text-embedding-3-small",
-        "description": "OpenAI embeddings (Required for 1536 dim)"
+        "provider": "google",
+        "base_url": "https://generativelanguage.googleapis.com/v1beta",
+        "api_key": os.getenv("GOOGLE_API_KEY", ""),
+        "model": "gemini-embedding-001",
+        "description": "Google AI embeddings (3072 dim)"
     }
     
     MEMORY_FILES_PATH = Path(os.getenv("MEMU_MEMORY_FILES_PATH", "./memory-files"))
@@ -142,17 +143,19 @@ def create_memory_instance(
                     "chat_model": provider_config["chat_model"],
                     "timeout": provider_config["timeout"],
                 },
-                "embedding": {
-                    "provider": "openai",
-                    "base_url": config.EMBEDDING_PROVIDER["base_url"],
-                    "api_key": config.EMBEDDING_PROVIDER["api_key"],
-                    "embed_model": config.EMBEDDING_PROVIDER["model"],
-                }
+            "embedding": {
+                "provider": "google",
+                "client_backend": "httpx",
+                "base_url": config.EMBEDDING_PROVIDER["base_url"],
+                "api_key": config.EMBEDDING_PROVIDER["api_key"],
+                "embed_model": config.EMBEDDING_PROVIDER["model"],
+                "endpoint_overrides": {"embedding": ":batchEmbedContents"},
+            }
             },
             database_config={
                 "metadata_store": {
                     "provider": "postgres",
-                    "connection_string": config.DATABASE_URL
+                    "dsn": config.DATABASE_URL
                 }
             },
         )

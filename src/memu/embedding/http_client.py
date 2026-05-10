@@ -8,6 +8,7 @@ import httpx
 
 from memu.embedding.backends.base import EmbeddingBackend
 from memu.embedding.backends.doubao import DoubaoEmbeddingBackend, DoubaoMultimodalEmbeddingInput
+from memu.embedding.backends.google import GoogleEmbeddingBackend
 from memu.embedding.backends.openai import OpenAIEmbeddingBackend
 
 logger = logging.getLogger(__name__)
@@ -15,6 +16,7 @@ logger = logging.getLogger(__name__)
 EMBEDDING_BACKENDS: dict[str, Callable[[], EmbeddingBackend]] = {
     OpenAIEmbeddingBackend.name: OpenAIEmbeddingBackend,
     DoubaoEmbeddingBackend.name: DoubaoEmbeddingBackend,
+    GoogleEmbeddingBackend.name: GoogleEmbeddingBackend,
 }
 
 
@@ -56,12 +58,19 @@ class HTTPEmbeddingClient:
             List of embedding vectors
         """
         payload = self.backend.build_embedding_payload(inputs=inputs, embed_model=self.embed_model)
+        headers = self._headers()
+        params = None
+        url = self.embedding_endpoint
+        if self.provider == "google":
+            headers.pop("Authorization", None)
+            params = {"key": self.api_key}
+            url = url or ":batchEmbedContents"
         async with httpx.AsyncClient(base_url=self.base_url, timeout=self.timeout) as client:
-            resp = await client.post(self.embedding_endpoint, json=payload, headers=self._headers())
+            resp = await client.post(url, json=payload, headers=headers, params=params)
             resp.raise_for_status()
             data = resp.json()
-        logger.debug("HTTP embedding response: %s", data)
-        return self.backend.parse_embedding_response(data)
+            logger.debug("HTTP embedding response: %s", data)
+            return self.backend.parse_embedding_response(data)
 
     async def embed_multimodal(
         self,
