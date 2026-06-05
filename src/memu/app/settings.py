@@ -124,6 +124,20 @@ class LLMConfig(BaseModel):
         default=1,
         description="Maximum batch size for embedding API calls (used by SDK client backends).",
     )
+    fallback_providers: list[dict[str, Any]] = Field(
+        default_factory=list,
+        description=(
+            "Ordered list of fallback LLM client configs. Each entry follows the same shape "
+            "as a top-level LLMConfig (provider, base_url, api_key, chat_model, etc.). "
+            "If the primary provider returns a 429 (rate limit) or transient 5xx error, "
+            "the FallbackLLMClient rotates to the next entry. Embedding requests are NOT "
+            "routed through the fallback list - use a dedicated 'embedding' profile instead."
+        ),
+    )
+    fallback_retry_status_codes: list[int] = Field(
+        default_factory=lambda: [429, 500, 502, 503, 504],
+        description="HTTP status codes that trigger fallback to the next provider.",
+    )
 
     @model_validator(mode="after")
     def set_provider_defaults(self) -> "LLMConfig":

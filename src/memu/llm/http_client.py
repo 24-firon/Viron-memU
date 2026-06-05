@@ -78,7 +78,15 @@ class _GoogleEmbeddingBackend(_EmbeddingBackend):
         }
 
     def parse_embedding_response(self, data: dict[str, Any]) -> list[list[float]]:
-        return [item.get("embedding", {}).get("values", []) for item in data.get("embeddings", [])]
+        results: list[list[float]] = []
+        for item in data.get("embeddings", []):
+            if "values" in item:
+                results.append(item["values"])
+            elif "embedding" in item and isinstance(item["embedding"], dict):
+                results.append(item["embedding"].get("values", []))
+            else:
+                results.append([])
+        return results
 
 
 logger = logging.getLogger(__name__)
@@ -89,6 +97,12 @@ LLM_BACKENDS: dict[str, Callable[[], LLMBackend]] = {
     GoogleLLMBackend.name: GoogleLLMBackend,
     GrokBackend.name: GrokBackend,
     OpenRouterLLMBackend.name: OpenRouterLLMBackend,
+    # Nvidia NIM uses the OpenAI-compatible API format
+    # (https://integrate.api.nvidia.com/v1/chat/completions with Bearer auth).
+    # Registering it as an alias of OpenAILLMBackend avoids duplicating the
+    # payload/response parsing code while keeping the provider name
+    # semantically distinct in the factory configuration.
+    "nvidia": OpenAILLMBackend,
 }
 
 
@@ -129,8 +143,13 @@ class HTTPLLMClient:
         payload = self.backend.build_summary_payload(
             text=text, system_prompt=system_prompt, chat_model=self.chat_model, max_tokens=max_tokens
         )
+        headers = self._headers()
+        params = None
+        if self.provider == "google":
+            headers.pop("Authorization", None)
+            params = {"key": self.api_key}
         async with httpx.AsyncClient(base_url=self.base_url, timeout=self.timeout) as client:
-            resp = await client.post(self.summary_endpoint, json=payload, headers=self._headers())
+            resp = await client.post(self.summary_endpoint, json=payload, headers=headers, params=params)
             resp.raise_for_status()
             data = resp.json()
         logger.debug("HTTP LLM summarize response: %s", data)
@@ -179,8 +198,14 @@ class HTTPLLMClient:
             max_tokens=max_tokens,
         )
 
+        headers = self._headers()
+        params = None
+        if self.provider == "google":
+            headers.pop("Authorization", None)
+            params = {"key": self.api_key}
+
         async with httpx.AsyncClient(base_url=self.base_url, timeout=self.timeout) as client:
-            resp = await client.post(self.summary_endpoint, json=payload, headers=self._headers())
+            resp = await client.post(self.summary_endpoint, json=payload, headers=headers, params=params)
             resp.raise_for_status()
             data = resp.json()
         logger.debug("HTTP LLM vision response: %s", data)

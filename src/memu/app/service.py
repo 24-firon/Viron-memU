@@ -23,6 +23,7 @@ from memu.app.settings import (
 from memu.blob.local_fs import LocalFS
 from memu.database.factory import build_database
 from memu.database.interfaces import Database
+from memu.llm.fallback_client import FallbackLLMClient
 from memu.llm.http_client import HTTPLLMClient
 from memu.llm.wrapper import (
     LLMCallMetadata,
@@ -95,13 +96,19 @@ class MemoryService(MemorizeMixin, RetrieveMixin, CRUDMixin):
         self._register_pipelines()
 
     def _init_llm_client(self, config: LLMConfig | None = None) -> Any:
-        """Initialize LLM client based on configuration."""
+        """Initialize LLM client based on configuration.
+
+        If `config.fallback_providers` is non-empty, builds a `FallbackLLMClient`
+        that wraps the primary client plus all fallback clients. The first entry
+        of `fallback_providers` is tried first; on a 429/5xx, the next is tried.
+        """
         cfg = config or self.llm_config
         backend = cfg.client_backend
+        primary: Any | None = None
         if backend == "sdk":
             from memu.llm.openai_sdk import OpenAISDKClient
 
-            return OpenAISDKClient(
+            primary = OpenAISDKClient(
                 base_url=cfg.base_url,
                 api_key=cfg.api_key,
                 chat_model=cfg.chat_model,
@@ -109,7 +116,7 @@ class MemoryService(MemorizeMixin, RetrieveMixin, CRUDMixin):
                 embed_batch_size=cfg.embed_batch_size,
             )
         elif backend == "httpx":
-            return HTTPLLMClient(
+            primary = HTTPLLMClient(
                 base_url=cfg.base_url,
                 api_key=cfg.api_key,
                 chat_model=cfg.chat_model,
@@ -120,7 +127,7 @@ class MemoryService(MemorizeMixin, RetrieveMixin, CRUDMixin):
         elif backend == "lazyllm_backend":
             from memu.llm.lazyllm_client import LazyLLMClient
 
-            return LazyLLMClient(
+            primary = LazyLLMClient(
                 llm_source=cfg.lazyllm_source.llm_source or cfg.lazyllm_source.source,
                 vlm_source=cfg.lazyllm_source.vlm_source or cfg.lazyllm_source.source,
                 embed_source=cfg.lazyllm_source.embed_source or cfg.lazyllm_source.source,
@@ -133,6 +140,48 @@ class MemoryService(MemorizeMixin, RetrieveMixin, CRUDMixin):
         else:
             msg = f"Unknown llm_client_backend '{cfg.client_backend}'"
             raise ValueError(msg)
+
+        # Build fallback chain (only meaningful for httpx-backed primary; SDK
+        # backends are not currently wrapped because their error surface differs).
+        if not cfg.fallback_providers:
+            return primary
+
+        if backend != "httpx":
+            logger.warning(
+                "fallback_providers configured but client_backend is '%s'; "
+                "fallback is only supported for the 'httpx' backend. Ignoring fallbacks.",
+                backend,
+            )
+            return primary
+
+        fallback_clients: list[HTTPLLMClient] = [primary]
+        for entry in cfg.fallback_providers:
+            try:
+                fb_client = HTTPLLMClient(
+                    base_url=entry.get("base_url", cfg.base_url),
+                    api_key=entry.get("api_key", ""),
+                    chat_model=entry.get("chat_model", cfg.chat_model),
+                    provider=entry.get("provider", "openai"),
+                    endpoint_overrides=entry.get("endpoint_overrides", {}),
+                    embed_model=entry.get("embed_model", cfg.embed_model),
+                    timeout=entry.get("timeout", 60),
+                )
+            except Exception as e:
+                logger.exception("Skipping invalid fallback entry %s: %s", entry, e)
+                continue
+            fallback_clients.append(fb_client)
+
+        if len(fallback_clients) == 1:
+            return primary
+
+        logger.info(
+            "Multi-provider fallback chain active: %s",
+            " -> ".join(f"{c.provider}/{c.chat_model}" for c in fallback_clients),
+        )
+        return FallbackLLMClient(
+            providers=fallback_clients,
+            retry_status_codes=cfg.fallback_retry_status_codes,
+        )
 
     def _get_llm_base_client(self, profile: str | None = None) -> Any:
         """

@@ -4,7 +4,8 @@ memU Factory Configuration Module
 
 This module provides a production-ready factory for memU Memory instances.
 It handles:
-- Multi-provider LLM configuration (Ollama, vLLM, OpenRouter, Google)
+- Multi-provider LLM configuration (Ollama, vLLM, OpenRouter, Google, Nvidia NIM)
+- Automatic fallback chains between providers on 429/5xx errors
 - Environment variable injection for memU internals
 - Database connection management
 - Error handling and fallback logic
@@ -13,10 +14,19 @@ Usage:
 ------
     from memu_factory import create_memory_instance
     
+    # Single provider
     memory = create_memory_instance(
         user_id="admin",
         agent_id="assistant",
         provider="openrouter"
+    )
+    
+    # Multi-provider with automatic fallback
+    memory = create_memory_instance(
+        user_id="admin",
+        agent_id="assistant",
+        provider="google",
+        enable_fallback=True,  # Activates Nvidia NIM as fallback
     )
     
     result = memory.memorize("Important fact")
@@ -76,9 +86,18 @@ class MemUConfig:
             "name": "Google AI Studio",
             "base_url": "https://generativelanguage.googleapis.com/v1beta",
             "api_key": os.getenv("GOOGLE_API_KEY", ""),
-            "chat_model": "gemini-2.0-flash-exp",
+            "chat_model": "gemini-flash-latest",
             "timeout": 30.0,
             "description": "Google's Gemini models"
+        },
+        
+        "nvidia": {
+            "name": "Nvidia NIM",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key": os.getenv("NVIDIA_API_KEY", ""),
+            "chat_model": "meta/llama-3.1-8b-instruct",
+            "timeout": 30.0,
+            "description": "Nvidia NIM (OpenAI-compatible API)"
         }
     }
     
@@ -101,9 +120,23 @@ def create_memory_instance(
     user_id: str = "poweruser_01",
     agent_id: str = "personal_assistant",
     provider: str = "vllm",  # DEFAULT IS NOW vLLM
-    custom_config: Optional[Dict[str, Any]] = None
+    custom_config: Optional[Dict[str, Any]] = None,
+    enable_fallback: bool = True,
 ) -> Any:
-    """Create a configured memU Memory instance."""
+    """Create a configured memU Memory instance.
+    
+    Args:
+        user_id: User identifier for memory isolation.
+        agent_id: Agent identifier (e.g., "personal_assistant").
+        provider: Primary LLM provider key from `MemUConfig.PROVIDERS`.
+        custom_config: Optional dict of attribute overrides for `MemUConfig`.
+        enable_fallback: If True, automatically appends fallback providers
+            (Nvidia NIM, vLLM) to the default profile. The fallback chain is
+            tried in order whenever the primary returns a 429 or 5xx error.
+    
+    Returns:
+        A fully initialized memU `MemoryService` instance.
+    """
     
     config = MemUConfig()
     
@@ -131,26 +164,46 @@ def create_memory_instance(
     print(f"   Agent ID: {agent_id}")
     print(f"   Provider: {provider_config['name']}")
     print(f"   Model: {provider_config['chat_model']}")
+    print(f"   Fallback: {'enabled' if enable_fallback else 'disabled'}")
+    
+    # Build the default profile from the chosen provider
+    default_profile: Dict[str, Any] = {
+        "provider": provider,
+        "client_backend": "httpx",
+        "base_url": provider_config["base_url"],
+        "api_key": provider_config["api_key"],
+        "chat_model": provider_config["chat_model"],
+        "timeout": provider_config["timeout"],
+    }
+    
+    # Add endpoint_overrides for providers that need them
+    if provider == "google":
+        default_profile["endpoint_overrides"] = {
+            "chat": f"models/{provider_config['chat_model']}:generateContent"
+        }
+    
+    # Build the fallback chain if enabled
+    fallback_providers: list[Dict[str, Any]] = []
+    if enable_fallback:
+        fallback_providers = _build_fallback_providers(
+            primary=provider,
+            config=config,
+        )
+    if fallback_providers:
+        default_profile["fallback_providers"] = fallback_providers
     
     try:
         service = MemoryService(
             llm_profiles={
-                "default": {
-                    "provider": "openai_compatible",
+                "default": default_profile,
+                "embedding": {
+                    "provider": "google",
                     "client_backend": "httpx",
-                    "base_url": provider_config["base_url"],
-                    "api_key": provider_config["api_key"],
-                    "chat_model": provider_config["chat_model"],
-                    "timeout": provider_config["timeout"],
-                },
-            "embedding": {
-                "provider": "google",
-                "client_backend": "httpx",
-                "base_url": config.EMBEDDING_PROVIDER["base_url"],
-                "api_key": config.EMBEDDING_PROVIDER["api_key"],
-                "embed_model": config.EMBEDDING_PROVIDER["model"],
-                "endpoint_overrides": {"embedding": ":batchEmbedContents"},
-            }
+                    "base_url": config.EMBEDDING_PROVIDER["base_url"],
+                    "api_key": config.EMBEDDING_PROVIDER["api_key"],
+                    "embed_model": config.EMBEDDING_PROVIDER["model"],
+                    "endpoint_overrides": {"embedding": "models/gemini-embedding-001:batchEmbedContents"},
+                }
             },
             database_config={
                 "metadata_store": {
@@ -160,6 +213,10 @@ def create_memory_instance(
             },
         )
         
+        # Show which providers are in the chain
+        if fallback_providers:
+            chain = [provider] + [fb.get("provider", "?") for fb in fallback_providers]
+            print(f"   Chain: {' -> '.join(chain)}")
         print("✅ Memory Service initialized successfully\n")
         return service
         
@@ -170,6 +227,65 @@ def create_memory_instance(
         print(f"   2. Check DB: docker exec memu_production_db pg_isready")
         print(f"   3. Verify endpoint: curl {provider_config['base_url']}/models")
         raise
+
+
+def _build_fallback_providers(
+    *,
+    primary: str,
+    config: Any,
+) -> list[Dict[str, Any]]:
+    """Build the ordered list of fallback provider configs.
+    
+    The primary provider is NOT included in the returned list - callers should
+    use the primary directly and append the fallbacks. Each fallback is only
+    included if the corresponding API key is present in the environment.
+    
+    Returns:
+        List of dicts, each with the same shape as a single LLM profile.
+    """
+    fallbacks: list[Dict[str, Any]] = []
+    
+    # Priority order: Nvidia NIM first (OpenAI-compatible, easy swap),
+    # then vLLM local as last resort.
+    candidate_keys = [
+        ("nvidia", "NVIDIA_API_KEY"),
+        ("vllm", None),  # vLLM doesn't need an API key
+    ]
+    
+    for prov_key, env_key in candidate_keys:
+        if prov_key == primary:
+            continue  # Don't duplicate the primary
+        prov_cfg = config.PROVIDERS.get(prov_key)
+        if not prov_cfg:
+            continue
+        if env_key and not prov_cfg.get("api_key"):
+            continue
+        if prov_key == "vllm":
+            # Skip vLLM if container isn't running
+            import subprocess
+            try:
+                result = subprocess.run(
+                    ["docker", "ps", "--format", "{{.Names}}"],
+                    capture_output=True, text=True, timeout=5,
+                )
+                if "memu_vllm" not in result.stdout:
+                    continue
+            except Exception:
+                continue
+        fallback: Dict[str, Any] = {
+            "provider": prov_key,
+            "client_backend": "httpx",
+            "base_url": prov_cfg["base_url"],
+            "api_key": prov_cfg.get("api_key", "EMPTY"),
+            "chat_model": prov_cfg["chat_model"],
+            "timeout": prov_cfg["timeout"],
+        }
+        if prov_key == "google":
+            fallback["endpoint_overrides"] = {
+                "chat": f"models/{prov_cfg['chat_model']}:generateContent"
+            }
+        fallbacks.append(fallback)
+    return fallbacks
 
 
 def smoke_test():
