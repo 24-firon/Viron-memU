@@ -41,12 +41,11 @@ async def test_init(provider):
 async def test_memorize(memory):
     print("\n" + "="*60); print("TEST 2.2: Memorize"); print("="*60)
     content = """
-Projekt Phoenix - 04.02.2026
-Leiter: Dr. Weber
-Budget: 75.000 EUR (genehmigt 01.02.2026)
-Deadline: 15.03.2026
-Stack: Python 3.13, PostgreSQL, pgvector
-Team: 3 Devs, 1 Data Scientist
+Mein Name ist Alex Schmidt. Ich liebe es, am Wochenende Tennis zu spielen.
+Mein absolutes Lieblingsessen ist italienische Pizza.
+Aktuell arbeite ich als Softwareentwickler bei TechCorp.
+Mein großes Ziel für dieses Jahr ist es, Klavier spielen zu lernen.
+Ich habe große Angst vor Spinnen.
 """
     info("Injecting test data...")
     try:
@@ -75,7 +74,7 @@ Team: 3 Devs, 1 Data Scientist
             for i, item in enumerate(items[:3], 1):
                 summary = item.get("summary", str(item))
                 print(f"  {i}. {summary[:80]}...")
-        else:
+        if not items:
             fail("No items extracted")
             return False
         cats = result.get("categories", [])
@@ -123,7 +122,7 @@ async def test_persist(memory):
 
 async def main():
     print(f"\n{C.BOLD}{'='*60}{C.X}"); print(f"{C.BOLD}MEMORIZE PIPELINE TEST{C.X}"); print(f"{C.BOLD}{'='*60}{C.X}")
-    provider = "openrouter"
+    provider = "litellm-local"
     if "--provider" in sys.argv:
         idx = sys.argv.index("--provider")
         if idx+1 < len(sys.argv): provider = sys.argv[idx+1]

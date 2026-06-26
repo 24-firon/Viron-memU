@@ -91,6 +91,15 @@ class MemUConfig:
             "description": "Google's Gemini models"
         },
         
+        "litellm-local": {
+            "name": "LiteLLM Proxy (Free Zen)",
+            "base_url": "http://localhost:4000/v1",
+            "api_key": os.getenv("LITELLM_API_KEY", "sk-litellm-factory-zT4nP7vR2mQ9xL5jW8bE3sH6fA1cD0gUyK"),
+            "chat_model": "mimo-v2-5-free",
+            "timeout": 120.0,
+            "description": "LiteLLM: Zentraler Router mit OpenCode Zen Free Modellen"
+        },
+        
         "nvidia": {
             "name": "Nvidia NIM",
             "base_url": "https://integrate.api.nvidia.com/v1",
@@ -119,7 +128,7 @@ class MemUConfig:
 def create_memory_instance(
     user_id: str = "poweruser_01",
     agent_id: str = "personal_assistant",
-    provider: str = "vllm",  # DEFAULT IS NOW vLLM
+    provider: str = "litellm-local",
     custom_config: Optional[Dict[str, Any]] = None,
     enable_fallback: bool = True,
 ) -> Any:
@@ -130,9 +139,8 @@ def create_memory_instance(
         agent_id: Agent identifier (e.g., "personal_assistant").
         provider: Primary LLM provider key from `MemUConfig.PROVIDERS`.
         custom_config: Optional dict of attribute overrides for `MemUConfig`.
-        enable_fallback: If True, automatically appends fallback providers
-            (Nvidia NIM, vLLM) to the default profile. The fallback chain is
-            tried in order whenever the primary returns a 429 or 5xx error.
+        enable_fallback: If True, wraps the client in FallbackLLMClient
+            for defense-in-depth. Falls back to Google AI if LiteLLM fails.
     
     Returns:
         A fully initialized memU `MemoryService` instance.
@@ -166,9 +174,17 @@ def create_memory_instance(
     print(f"   Model: {provider_config['chat_model']}")
     print(f"   Fallback: {'enabled' if enable_fallback else 'disabled'}")
     
+    # Determine the backend provider name for memU's HTTP client.
+    # LiteLLM is OpenAI-compatible, so it uses the "openai" backend.
+    backend_provider = provider
+    if provider == "litellm-local":
+        backend_provider = "openai"
+    if provider == "google":
+        backend_provider = "google"
+    
     # Build the default profile from the chosen provider
     default_profile: Dict[str, Any] = {
-        "provider": provider,
+        "provider": backend_provider,
         "client_backend": "httpx",
         "base_url": provider_config["base_url"],
         "api_key": provider_config["api_key"],
@@ -236,32 +252,31 @@ def _build_fallback_providers(
 ) -> list[Dict[str, Any]]:
     """Build the ordered list of fallback provider configs.
     
-    The primary provider is NOT included in the returned list - callers should
-    use the primary directly and append the fallbacks. Each fallback is only
-    included if the corresponding API key is present in the environment.
+    The primary provider is NOT included in the returned list. Each fallback
+    is only included if the corresponding API key or container is available.
+    
+    For LiteLLM primary: falls back to Google AI Studio direct API call,
+    then local vLLM as last resort.
     
     Returns:
         List of dicts, each with the same shape as a single LLM profile.
     """
     fallbacks: list[Dict[str, Any]] = []
     
-    # Priority order: Nvidia NIM first (OpenAI-compatible, easy swap),
-    # then vLLM local as last resort.
     candidate_keys = [
-        ("nvidia", "NVIDIA_API_KEY"),
+        ("google", "GOOGLE_API_KEY"),
         ("vllm", None),  # vLLM doesn't need an API key
     ]
     
     for prov_key, env_key in candidate_keys:
         if prov_key == primary:
-            continue  # Don't duplicate the primary
+            continue
         prov_cfg = config.PROVIDERS.get(prov_key)
         if not prov_cfg:
             continue
         if env_key and not prov_cfg.get("api_key"):
             continue
         if prov_key == "vllm":
-            # Skip vLLM if container isn't running
             import subprocess
             try:
                 result = subprocess.run(
@@ -272,8 +287,11 @@ def _build_fallback_providers(
                     continue
             except Exception:
                 continue
+        fb_provider = prov_key
+        if prov_key == "litellm-local":
+            fb_provider = "openai"
         fallback: Dict[str, Any] = {
-            "provider": prov_key,
+            "provider": fb_provider,
             "client_backend": "httpx",
             "base_url": prov_cfg["base_url"],
             "api_key": prov_cfg.get("api_key", "EMPTY"),

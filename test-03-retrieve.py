@@ -54,9 +54,9 @@ async def setup_data(memory):
 async def test_rag(memory):
     print("\n" + "="*60); print("TEST 3.1: RAG Retrieval"); print("="*60)
     queries = [
-        ("Budget", "Wie hoch ist das Budget fuer Sigma?"),
-        ("Team", "Wer ist im Sigma Team?"),
-        ("Risk", "Welche Risiken hat Sigma?"),
+        ("Activities", "Was spielt Alex am Wochenende?"),
+        ("Preferences", "Was isst Alex am liebsten?"),
+        ("Work", "Wo arbeitet Alex?"),
     ]
     scores = []
     for cat, q in queries:
@@ -64,7 +64,7 @@ async def test_rag(memory):
         try:
             result = await memory.retrieve(
                 queries=[{"role": "user", "content": {"text": q}}],
-                where={"user_id": "test_user_03"},
+                where={"user_id": "test_user_02"},
             )
             if not result:
                 fail(f"Empty for {cat}")
@@ -73,11 +73,11 @@ async def test_rag(memory):
             items = result.get("items", [])
             info(f"Retrieved {len(items)} items")
             relevant = False
-            if cat == "Budget" and any("120" in str(i) for i in items):
+            if cat == "Activities" and any("tennis" in str(i).lower() for i in items):
                 relevant = True
-            elif cat == "Team" and any("maria" in str(i).lower() for i in items):
+            elif cat == "Preferences" and any("pizza" in str(i).lower() for i in items):
                 relevant = True
-            elif cat == "Risk" and any("risk" in str(i).lower() for i in items):
+            elif cat == "Work" and any("techcorp" in str(i).lower() for i in items):
                 relevant = True
             if relevant:
                 pass_(f"Relevant info found for {cat}")
@@ -96,8 +96,8 @@ async def test_rag(memory):
 async def test_llm(memory):
     print("\n" + "="*60); print("TEST 3.2: LLM Retrieval"); print("="*60)
     queries = [
-        ("Context", "Was sind die wichtigsten Infos zu Sigma?"),
-        ("Risk", "Welche Herausforderungen hat Sigma?"),
+        ("Context", "Was sind die wichtigsten Infos zu Alex?"),
+        ("Goals", "Welche Ziele hat Alex?"),
     ]
     scores = []
     for cat, q in queries:
@@ -108,7 +108,7 @@ async def test_llm(memory):
             memory.retrieve_config.method = "llm"
             result = await memory.retrieve(
                 queries=[{"role": "user", "content": {"text": q}}],
-                where={"user_id": "test_user_03"},
+                where={"user_id": "test_user_02"},
             )
             elapsed = time.time() - start
             info(f"Took {elapsed:.1f}s")
@@ -131,10 +131,9 @@ async def test_llm(memory):
     memory.retrieve_config.method = "rag"
     return avg >= 0.5
 
-
 async def test_compare(memory):
     print("\n" + "="*60); print("TEST 3.3: RAG vs LLM"); print("="*60)
-    q = "Was ist der Status von Sigma?"
+    q = "Was ist der Status von Alex?"
     print(f"\n{C.M}Test:{C.X} {q}\n")
     results = {}
 
@@ -144,7 +143,7 @@ async def test_compare(memory):
         start = time.time()
         rag = await memory.retrieve(
             queries=[{"role": "user", "content": {"text": q}}],
-            where={"user_id": "test_user_03"},
+            where={"user_id": "test_user_02"},
         )
         results["rag"] = {"ok": bool(rag and rag.get("items")), "time": time.time()-start, "n": len(rag.get("items", []))}
         info(f"RAG: {results['rag']['n']} items in {results['rag']['time']:.2f}s")
@@ -158,7 +157,7 @@ async def test_compare(memory):
         start = time.time()
         llm = await memory.retrieve(
             queries=[{"role": "user", "content": {"text": q}}],
-            where={"user_id": "test_user_03"},
+            where={"user_id": "test_user_02"},
         )
         results["llm"] = {"ok": bool(llm and llm.get("items")), "time": time.time()-start, "n": len(llm.get("items", []))}
         info(f"LLM: {results['llm']['n']} items in {results['llm']['time']:.2f}s")
@@ -177,18 +176,20 @@ async def test_compare(memory):
 
 async def main():
     print(f"\n{C.BOLD}{'='*60}{C.X}"); print(f"{C.BOLD}RETRIEVAL TEST{C.X}"); print(f"{C.BOLD}{'='*60}{C.X}")
-    provider = "openrouter"
+    provider = "litellm-local"
     if "--provider" in sys.argv:
         idx = sys.argv.index("--provider")
         if idx+1 < len(sys.argv): provider = sys.argv[idx+1]
 
     try:
-        memory = create_memory_instance(user_id="test_user_03", agent_id="test", provider=provider)
+        memory = create_memory_instance(user_id="test_user_02", agent_id="test", provider=provider)
     except Exception as e:
         print(f"\n{C.R}CRITICAL: No instance: {e}{C.X}")
         return 1
 
-    await setup_data(memory)
+    # info("Waiting 30s to avoid Google API rate limit (429)...")
+    # time.sleep(30)
+    # await setup_data(memory)
 
     results = []
     results.append(("RAG", await test_rag(memory)))

@@ -6,20 +6,38 @@ from memu.llm.backends.base import LLMBackend
 
 
 class GoogleLLMBackend(LLMBackend):
-    """Stub backend for Google AI — only embedding is supported via this profile."""
+    """Backend for Google Generative AI."""
 
     name = "google"
-    summary_endpoint = "/v1beta/models:generateContent"
+    summary_endpoint = ""
 
     def build_summary_payload(
         self, *, text: str, system_prompt: str | None, chat_model: str, max_tokens: int | None
     ) -> dict[str, Any]:
-        msg = "Google LLM chat is not supported via this backend; use the OpenAI-compatible endpoint with vLLM instead."
-        raise NotImplementedError(msg)
+        payload: dict[str, Any] = {
+            "contents": [
+                {
+                    "parts": [{"text": text}],
+                    "role": "user"
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.2
+            }
+        }
+        if system_prompt:
+            payload["systemInstruction"] = {
+                "parts": [{"text": system_prompt}]
+            }
+        if max_tokens:
+            payload["generationConfig"]["maxOutputTokens"] = max_tokens
+        return payload
 
     def parse_summary_response(self, data: dict[str, Any]) -> str:
-        msg = "Google LLM chat is not supported via this backend."
-        raise NotImplementedError(msg)
+        try:
+            return data["candidates"][0]["content"]["parts"][0]["text"]
+        except (KeyError, IndexError):
+            return str(data)
 
     def build_vision_payload(
         self,
@@ -31,5 +49,29 @@ class GoogleLLMBackend(LLMBackend):
         chat_model: str,
         max_tokens: int | None,
     ) -> dict[str, Any]:
-        msg = "Google vision is not supported via this backend."
-        raise NotImplementedError(msg)
+        payload: dict[str, Any] = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt},
+                        {
+                            "inlineData": {
+                                "mimeType": mime_type,
+                                "data": base64_image
+                            }
+                        }
+                    ],
+                    "role": "user"
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.2
+            }
+        }
+        if system_prompt:
+            payload["systemInstruction"] = {
+                "parts": [{"text": system_prompt}]
+            }
+        if max_tokens:
+            payload["generationConfig"]["maxOutputTokens"] = max_tokens
+        return payload

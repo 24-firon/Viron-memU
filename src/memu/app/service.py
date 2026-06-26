@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from typing import Any, Literal, TypeVar
@@ -25,6 +26,8 @@ from memu.database.factory import build_database
 from memu.database.interfaces import Database
 from memu.llm.fallback_client import FallbackLLMClient
 from memu.llm.http_client import HTTPLLMClient
+
+logger = logging.getLogger(__name__)
 from memu.llm.wrapper import (
     LLMCallMetadata,
     LLMClientWrapper,
