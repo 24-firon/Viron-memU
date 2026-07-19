@@ -5,15 +5,11 @@ trigger: always_on
 scope: alle
 repo: all
 ---
-<!-- Kanon v1.2, ausgerollt 2026-07-19 -->
 
 # 30_behavior.md
 
-> **Tier-1-Rollout-Regel (universal)** — Quelle: `.claude/rules/ssot/30_behavior.md`,
-> kuratiert Session 17 (KANON-SYSTEMREPARATUR_17, 2026-07-19).
-
 > **STATUS:** ALWAYS_ON
-> **SCOPE:** Alle Domänen
+> **SCOPE:** Alle Domänen (Factory, Studio, Lab)
 > **BLOCK:** 30 — Kommunikation & Verhalten
 
 ## 1. Anti-Hide (Artifakt-Platzierung)
@@ -34,11 +30,11 @@ repo: all
 
 ## 5. Anti-Amnesia (Decision Log)
 
-**SOG:** Dokumentiere jede architektonische Änderung sofort im Decision Log des Repos bzw. der Session (`decision_log.md` / `DECISION_LOG.md`), DENN flüchtige Entscheidungen im Chat-Kontext sterben mit der Session und zwingen zukünftige Agenten zum Neuerfinden.
+**SOG:** Dokumentiere jede architektonische Änderung sofort in `DECISION_LOG.md`, DENN flüchtige Entscheidungen im Chat-Kontext sterben mit der Session und zwingen zukünftige Agenten zum Neuerfinden.
 
 ## 6. Knowledge Growth (Learning Log)
 
-**SOG:** Wenn du ein wiederverwendbares Pattern oder eine Lösung für ein Blocker-Problem entdeckst, schreibe es in den Learnings-Bereich des Repos (z.B. `STORAGE/learnings/`), DENN dieses Wissen muss für zukünftige Sessions und Agenten erhalten bleiben.
+**SOG:** Wenn du ein wiederverwendbares Pattern oder eine Lösung für ein Blocker-Problem entdeckst, schreibe es in `STORAGE/learnings/`, DENN dieses Wissen muss für zukünftige Sessions und Agenten erhalten bleiben.
 
 ## 7. Resilience (Tool-Failure)
 

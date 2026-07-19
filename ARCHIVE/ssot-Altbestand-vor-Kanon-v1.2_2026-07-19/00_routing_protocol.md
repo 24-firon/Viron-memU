@@ -5,18 +5,11 @@ trigger: always_on
 scope: alle
 repo: all
 ---
-<!-- Kanon v1.2, ausgerollt 2026-07-19 -->
 
 # 00_routing_protocol.md
 
-> **Tier-1-Rollout-Regel (universal)** — Quelle: `.claude/rules/ssot/00_routing_protocol.md`,
-> kuratiert Session 17 (KANON-SYSTEMREPARATUR_17, 2026-07-19).
-> **Framework-Hinweis:** In Dual-Framework-Repos (OpenCode + Claude Code) darf diese Regel in
-> beiden Regel-Ordnern liegen — nur der Skill-Ordner-Verweis (`.claude/skills/` vs.
-> `.opencode/skills/`) ist je Framework anzupassen. Das ist gewollte Koexistenz, kein Widerspruch.
-
 > **STATUS:** ALWAYS_ON
-> **SCOPE:** Alle Domänen
+> **SCOPE:** Alle Domänen (Factory, Studio, Lab)
 > **BLOCK:** 00-09 — Meta-Konzepte (über allen Kategorien)
 
 ## 1. Die 3-stufige Prüfung (VOR jeder Aufgabe)
@@ -30,14 +23,14 @@ Ein Agent, der diese Prüfung nicht durchläuft, handelt blind. Er lädt entwede
 
 **Stufe 2 — STORAGE prüfen (per Index):**
 - Welche Kategorie betrifft mein Task?
-- → LIES den Indexeintrag im Storage-Router des Repos (z.B. `DOCS/routing/_index.md`)
+- → LIES den Indexeintrag in `DOCS/routing/_index.md`
 - → LADE die geroutete Datei
 - → **DOKUMENTIERE** den Ladevorgang in der `walkthrough.md` (siehe Section 3)
 - → Handle
 
 **Stufe 3 — SKILLS prüfen (per Task-Match):**
 - Gibt es einen Skill für meine Aufgabe?
-- → Prüfe den Skill-Ordner des Frameworks (`.claude/skills/` bzw. `.opencode/skills/` bzw. Skill-Tool) auf passende `SKILL.md`
+- → Prüfe `.claude/skills/` (bzw. Skill-Tool) auf passende `SKILL.md`
 - → Folge der Routing-Matrix des Skills
 - → Handle
 
@@ -45,7 +38,7 @@ Ein Agent, der diese Prüfung nicht durchläuft, handelt blind. Er lädt entwede
 
 | Schicht | Nach Task-Ende | Nach Komprimierung |
 |:--|:--|:--|
-| **DOCS** | Bleiben permanent aktiv | Bleiben aktiv (injiziert) |
+| **DOCS** | Bleiben permanent aktiv | Bleiben aktiv (via JSONC injiziert) |
 | **STORAGE** | Verlassen den Kontext | **MÜSSEN neu geladen werden** (siehe Section 3) |
 | **SKILLS** | Verlassen den Kontext | **MÜSSEN neu geladen werden** (siehe Section 3) |
 
@@ -56,8 +49,9 @@ Ein Agent, der diese Prüfung nicht durchläuft, handelt blind. Er lädt entwede
 **Format in `walkthrough.md`:**
 ```markdown
 ## Payload-Log
-- [09:45] `<regel-datei>.md` geladen (conditional: <Task-Grund>)
-- [10:00] ⚠️ Kontext-Komprimierung erkannt → Payloads neu geladen: `<regel-datei>.md`
+- [09:45] `50_supabase.md` geladen (conditional: Supabase-Task)
+- [09:50] `51_framer_motion.md` geladen (conditional: Animation-Task)
+- [10:00] ⚠️ Kontext-Komprimierung erkannt → Payloads neu geladen: `50_supabase.md`, `51_framer_motion.md`
 ```
 
 **Nach einer Komprimierung MUSS der Agent:**
@@ -76,6 +70,10 @@ Ein Agent, der diese Prüfung nicht durchläuft, handelt blind. Er lädt entwede
 | `task.md` | Was ist erledigt, was offen? | Bei jedem Task-Abschluss |
 | `walkthrough.md` | Was wurde wirklich getan? + Payload-Log | Nach jedem Tool-Call |
 
+**Versionierung:** Bei Session-Start werden die Brain-Dateien versioniert (z.B. `task_v20260522_abc123.md`). Details in `DOCS/plans/versioning.md`.
+
+**Diese Dateien werden vom SessionStart-Hook (`.claude/hooks/inject-context.cjs`) injiziert** und bleiben auch nach Komprimierung verfügbar.
+
 ## 5. Skill-Nutzungs-Mandat
 
 Skills sind **Router, keine Archive**. Befolge bei komplexen Skills diesen Workflow:
@@ -88,11 +86,13 @@ Skills sind **Router, keine Archive**. Befolge bei komplexen Skills diesen Workf
 
 ## 6. Storage-Nutzungs-Mandat
 
-Storage-Dateien werden **nicht** automatisch geladen. Der Agent MUSS aktiv den Index konsultieren, wenn ein Task eine Kategorie betrifft, die nicht in den Docs abgedeckt ist.
+Storage-Dateien werden **nicht** automatisch geladen. Der Agent MUSS aktiv den Index (`DOCS/routing/_index.md`) konsultieren, wenn ein Task eine Kategorie betrifft, die nicht in den Docs abgedeckt ist.
 
-- "Task berührt Kategorie X" → LIES den Storage-Router → LADE die geroutete Regel-/Wissensdatei
-- "Erstelle einen Sub-Agenten" → LIES den Storage-Router → LADE `30_sub_agent_prompting.md`
+- "Baue eine animierte Hero-Sektion" → LIES `DOCS/routing/_index.md` → LADE `62_animation.md`
+- "Konfiguriere Supabase Auth" → LIES `DOCS/routing/_index.md` → LADE `50_supabase.md`
+- "Erstelle einen Sub-Agenten" → LIES `DOCS/routing/_index.md` → LADE `30_sub_agent_prompting.md`
 
 ## 🔗 Light Router
 - **WENN** du die Docs/Storage/Skills-Definition brauchst ➔ **LIES** `00_docs_storage_definition.md`
-- **WENN** du den vollständigen Rule-Index brauchst ➔ **LIES** den Storage-Router des Repos (z.B. `DOCS/routing/_index.md`)
+- **WENN** du die Skill-Matrix (welcher Skill für welchen Task) brauchst ➔ **SIEHE** `00_skill_matrix.md`
+- **WENN** du den vollständigen Rule-Index brauchst ➔ **LIES** `DOCS/routing/_index.md`

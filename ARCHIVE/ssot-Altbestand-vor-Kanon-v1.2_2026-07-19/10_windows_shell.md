@@ -6,22 +6,18 @@ scope: alle
 repo: all
 harness: claude-code
 ---
-<!-- Kanon v1.2, ausgerollt 2026-07-19 -->
 
 # 10_windows_shell.md (Claude-Code-Fassung)
-
-> **Tier-1-Rollout-Regel (universal)** — Quelle: `.claude/rules/ssot/10_windows_shell.md`,
-> kuratiert Session 17 (KANON-SYSTEMREPARATUR_17, 2026-07-19).
 
 > **STATUS:** ALWAYS_ON
 > **SCOPE:** Alle Domänen — Windows-Plattform, Harness **Claude Code**
 > **BLOCK:** 10 — Safety & Zerstörungsschutz
 >
-> ⚠️ **Harness-Hinweis:** Die OpenCode-/Antigravity-Fassung dieser Regel verlangt `cmd /c` vor
-> **jedem** Befehl, um den **Antigravity-Graphite-EOF-Bug** zu umgehen. Dieser Bug existiert in
-> Claude Code **nicht**. Dort würde die Präfixierung nur Quoting zerstören und Befehle unnötig
-> verschachteln. **In Claude Code gilt: KEIN `cmd /c`-Zwang.** (Muster: Harness-Unterschiede
-> explizit dokumentieren, statt zwei widersprüchliche Silo-Dateien zu pflegen.)
+> ⚠️ **Harness-Hinweis:** Die OpenCode-/Antigravity-Fassung dieser Regel
+> (`STORAGE/rules/core/10_windows_shell.md`) verlangt `cmd /c` vor **jedem** Befehl, um den
+> **Antigravity-Graphite-EOF-Bug** zu umgehen. Dieser Bug existiert in Claude Code **nicht**.
+> Dort würde die Präfixierung nur Quoting zerstören und Befehle unnötig verschachteln.
+> **In Claude Code gilt: KEIN `cmd /c`-Zwang.**
 
 ## 1. Zwei Shells, zwei Syntaxen — bewusst wählen
 
@@ -35,7 +31,7 @@ Claude Code stellt unter Windows **zwei getrennte Tools** bereit:
 **SOG:** Wähle **ein** Tool pro Befehl und halte dessen Syntax konsequent durch, DENN
 Bash-Syntax im PowerShell-Tool (und umgekehrt) ist ein Parser-Fehler, kein stiller Fallback.
 
-- **Bash:** `/dev/null` (NIEMALS `NUL` — das erzeugt in Git Bash eine echte Datei und bricht `git add` mit Exit 128), Forward-Slashes, `$VAR`, Heredocs.
+- **Bash:** `/dev/null`, Forward-Slashes, `$VAR`, Heredocs.
 - **PowerShell:** `$null`, `Test-Path`, `$env:VAR`, Here-Strings (`@'…'@`; schließendes `'@` auf Spalte 0).
 
 ## 2. Verbote — interaktiv und blockierend

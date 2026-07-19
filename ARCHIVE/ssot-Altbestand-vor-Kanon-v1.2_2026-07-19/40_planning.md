@@ -5,15 +5,11 @@ trigger: always_on
 scope: alle
 repo: all
 ---
-<!-- Kanon v1.2, ausgerollt 2026-07-19 -->
 
 # 40_planning.md
 
-> **Tier-1-Rollout-Regel (universal)** — Quelle: `.claude/rules/ssot/40_planning.md`,
-> kuratiert Session 17 (KANON-SYSTEMREPARATUR_17, 2026-07-19).
-
 > **STATUS:** ALWAYS_ON
-> **SCOPE:** Alle Domänen
+> **SCOPE:** Alle Domänen (Factory, Studio, Lab)
 > **BLOCK:** 40 — Workflow & Planning
 
 ## 1. Plan-Pflicht
@@ -36,8 +32,6 @@ Reversibel: JA / NEIN
 Backup vorhanden: JA / NEIN
 → Bestätige mit: "Go"
 ```
-
-**Hinweis:** Führt das Repo ein eigenes Gateway-/Meilenstein-Format (z.B. den GATEWAY-Block der Session-Start-Pflichten), gilt das Repo-Format — dieser Block ist die Minimal-Fassung für Repos ohne eigenes Format.
 
 ## 4. Ambiguity Killer
 

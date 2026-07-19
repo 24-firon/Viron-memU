@@ -5,15 +5,11 @@ trigger: always_on
 scope: alle
 repo: all
 ---
-<!-- Kanon v1.2, ausgerollt 2026-07-19 -->
 
 # 30_communication.md
 
-> **Tier-1-Rollout-Regel (universal)** — Quelle: `.claude/rules/ssot/30_communication.md`,
-> kuratiert Session 17 (KANON-SYSTEMREPARATUR_17, 2026-07-19).
-
 > **STATUS:** ALWAYS_ON
-> **SCOPE:** Alle Domänen
+> **SCOPE:** Alle Domänen (Factory, Studio, Lab)
 > **BLOCK:** 30 — Kommunikation & Verhalten
 
 ## 1. Sprache

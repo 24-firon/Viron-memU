@@ -1,17 +1,12 @@
-<!-- Kanon v1.2, ausgerollt 2026-07-19 -->
 # GRUNDREGEL-BUNDLE — Basisregeln für alle Repos
 
-> **Tier-1-Rollout-Regel (universal)** — Quelle: `.claude/rules/ssot/GRUNDREGEL-BUNDLE.md`,
-> kuratiert Session 17 (KANON-SYSTEMREPARATUR_17, 2026-07-19).
-> **⚠️ Verteilungs-Hinweis:** Die Quell-Datei deklariert sich als ZENTRAL (einmal im CDS, per
-> absolutem Pfad in die `.claude/context-inject.json` aller Repos injiziert, SessionStart-Hook
-> GEN 2). Diese Rollout-Kopie ist der **Fallback für Ziel-Repos/Umgebungen ohne den zentralen
-> Injektions-Hook**. Läuft der Hook, hat die zentrale Fassung Vorrang — diese Kopie dann NICHT
-> zusätzlich injizieren (Dopplung), sondern als Referenz liegen lassen.
-
 > **Version:** 0.1 · **Status:** ENTWURF (Kuration durch Operator ausstehend)
-> **Repo-spezifische Regeln** gehören NICHT hierher, sondern in das Regelwerk des
-> jeweiligen Repos (Tier 2/3-Overlay).
+> **Bereitstellung:** Diese Datei liegt EINMAL zentral hier und wird per absolutem Pfad
+> in die `.claude/context-inject.json` aller Repos injiziert (SessionStart-Hook GEN 2).
+> **Pfad ist stabil — NICHT verschieben/umbenennen**, ohne alle Listen anzupassen.
+> **Repo-spezifische Regeln** gehören NICHT hierher, sondern in die Dateiliste des
+> jeweiligen Repos (nach gezielter Prüfung der Alt-Regeln, siehe Task
+> `Workbench/DESK/TASKS/active/2026-07-14_Altregeln-Review-pro-Repo_Task.md`).
 
 ---
 

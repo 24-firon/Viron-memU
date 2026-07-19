@@ -5,15 +5,11 @@ trigger: always_on
 scope: alle
 repo: all
 ---
-<!-- Kanon v1.2, ausgerollt 2026-07-19 -->
 
 # 40_read_discipline.md
 
-> **Tier-1-Rollout-Regel (universal)** — Quelle: `.claude/rules/ssot/40_read_discipline.md`,
-> kuratiert Session 17 (KANON-SYSTEMREPARATUR_17, 2026-07-19).
-
 > **STATUS:** ALWAYS_ON
-> **SCOPE:** Alle Domänen
+> **SCOPE:** Alle Domänen (Factory, Studio, Lab)
 > **BLOCK:** 40 — Workflow & Planning
 
 ## 1. Die 50-Zeilen-Regel
