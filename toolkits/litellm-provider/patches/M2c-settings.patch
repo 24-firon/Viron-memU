@@ -1,0 +1,34 @@
+diff --git a/config/settings.py b/config/settings.py
+index 77da2f2..8ce89a1 100644
+--- a/config/settings.py
++++ b/config/settings.py
+@@ -128,6 +128,13 @@ class Settings(BaseSettings):
+     # ==================== Fireworks AI Config ====================
+     fireworks_api_key: str = Field(default="", validation_alias="FIREWORKS_API_KEY")
+ 
++    # ==================== LiteLLM Config ====================
++    litellm_api_key: str = Field(default="", validation_alias="LITELLM_API_KEY")
++    litellm_base_url: str = Field(
++        default="http://127.0.0.1:4000",
++        validation_alias="LITELLM_BASE_URL",
++    )
++
+     # ==================== Messaging Platform Selection ====================
+     # Valid: "telegram" | "discord" | "none"
+     messaging_platform: str = Field(
+@@ -178,6 +185,7 @@ class Settings(BaseSettings):
+     lmstudio_proxy: str = Field(default="", validation_alias="LMSTUDIO_PROXY")
+     llamacpp_proxy: str = Field(default="", validation_alias="LLAMACPP_PROXY")
+     kimi_proxy: str = Field(default="", validation_alias="KIMI_PROXY")
++    litellm_proxy: str = Field(default="", validation_alias="LITELLM_PROXY")
+     wafer_proxy: str = Field(default="", validation_alias="WAFER_PROXY")
+     opencode_proxy: str = Field(default="", validation_alias="OPENCODE_PROXY")
+     zai_proxy: str = Field(default="", validation_alias="ZAI_PROXY")
+@@ -407,6 +415,7 @@ class Settings(BaseSettings):
+         "open_router_api_key",
+         "deepseek_api_key",
+         "kimi_api_key",
++        "litellm_api_key",
+         "wafer_api_key",
+         "opencode_api_key",
+         "zai_api_key",

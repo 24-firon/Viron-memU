@@ -1,0 +1,94 @@
+diff --git a/providers/litellm/__init__.py b/providers/litellm/__init__.py
+new file mode 100644
+index 0000000..8097547
+--- /dev/null
++++ b/providers/litellm/__init__.py
+@@ -0,0 +1,10 @@
++"""LiteLLM provider exports."""
++
++from providers.defaults import LITELLM_DEFAULT_BASE
++
++from .client import LiteLLMProvider
++
++__all__ = [
++    "LITELLM_DEFAULT_BASE",
++    "LiteLLMProvider",
++]
+diff --git a/providers/litellm/client.py b/providers/litellm/client.py
+new file mode 100644
+index 0000000..27e7bd7
+--- /dev/null
++++ b/providers/litellm/client.py
+@@ -0,0 +1,31 @@
++"""LiteLLM provider implementation (OpenAI-compatible Chat Completions)."""
++
++from __future__ import annotations
++
++from typing import Any
++
++from providers.base import ProviderConfig
++from providers.defaults import LITELLM_DEFAULT_BASE
++from providers.openai_compat import OpenAIChatTransport
++
++from .request import build_request_body
++
++
++class LiteLLMProvider(OpenAIChatTransport):
++    """LiteLLM provider using ``http://127.0.0.1:4000/v1/chat/completions``."""
++
++    def __init__(self, config: ProviderConfig):
++        super().__init__(
++            config,
++            provider_name="LITELLM",
++            base_url=config.base_url or LITELLM_DEFAULT_BASE,
++            api_key=config.api_key,
++        )
++
++    def _build_request_body(
++        self, request: Any, thinking_enabled: bool | None = None
++    ) -> dict:
++        return build_request_body(
++            request,
++            thinking_enabled=self._is_thinking_enabled(request, thinking_enabled),
++        )
+diff --git a/providers/litellm/request.py b/providers/litellm/request.py
+new file mode 100644
+index 0000000..3759c6a
+--- /dev/null
++++ b/providers/litellm/request.py
+@@ -0,0 +1,35 @@
++"""Request builder for LiteLLM provider."""
++
++from typing import Any
++
++from loguru import logger
++
++from core.anthropic import ReasoningReplayMode, build_base_request_body
++from core.anthropic.conversion import OpenAIConversionError
++from providers.exceptions import InvalidRequestError
++
++
++def build_request_body(request_data: Any, *, thinking_enabled: bool) -> dict:
++    """Build OpenAI-format request body from Anthropic request for LiteLLM."""
++    logger.debug(
++        "LITELLM_REQUEST: conversion start model={} msgs={}",
++        getattr(request_data, "model", "?"),
++        len(getattr(request_data, "messages", [])),
++    )
++    try:
++        body = build_base_request_body(
++            request_data,
++            reasoning_replay=ReasoningReplayMode.REASONING_CONTENT
++            if thinking_enabled
++            else ReasoningReplayMode.DISABLED,
++        )
++    except OpenAIConversionError as exc:
++        raise InvalidRequestError(str(exc)) from exc
++
++    logger.debug(
++        "LITELLM_REQUEST: conversion done model={} msgs={} tools={}",
++        body.get("model"),
++        len(body.get("messages", [])),
++        len(body.get("tools", [])),
++    )
++    return body

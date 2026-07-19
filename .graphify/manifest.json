@@ -1,0 +1,758 @@
+{
+  "C:/Workspace/Repos/memU/examples/example_1_conversation_memory.py": {
+    "mtime": 1782745901480.1868,
+    "hash": "dd2ed12642b24febc0e0e50d3fb55e6f"
+  },
+  "C:/Workspace/Repos/memU/examples/example_2_skill_extraction.py": {
+    "mtime": 1782745901481.193,
+    "hash": "2afadc481fc5f26abe7d87e0580db0fa"
+  },
+  "C:/Workspace/Repos/memU/examples/example_3_multimodal_memory.py": {
+    "mtime": 1782745901482.198,
+    "hash": "b7094c5240505b16451f0a1239c75c9c"
+  },
+  "C:/Workspace/Repos/memU/examples/example_4_openrouter_memory.py": {
+    "mtime": 1782745901482.198,
+    "hash": "8f04baf22a9b108f6bc2a28e35e7f3f3"
+  },
+  "C:/Workspace/Repos/memU/examples/example_5_with_lazyllm_client.py": {
+    "mtime": 1782745901483.1975,
+    "hash": "cdf1b4f85baf28d37215b2d8f4e1c828"
+  },
+  "C:/Workspace/Repos/memU/examples/getting_started_robust.py": {
+    "mtime": 1782745901483.1975,
+    "hash": "88e4dea06bf60b84e66600915657b845"
+  },
+  "C:/Workspace/Repos/memU/examples/langgraph_demo.py": {
+    "mtime": 1782745901484.1975,
+    "hash": "d6114af4d11eb670d93770eec097a33c"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/config.py": {
+    "mtime": 1782745901493.213,
+    "hash": "c17bd64dfd4cd714136e7226f962d162"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/local/__init__.py": {
+    "mtime": 1782745901493.213,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/local/common.py": {
+    "mtime": 1782745901494.2139,
+    "hash": "d28c16c4d2cf0831f4d24e4c068f8f98"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/local/memorize.py": {
+    "mtime": 1782745901495.213,
+    "hash": "f6f21f623a5605c0abd67807874d72be"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/local/tools.py": {
+    "mtime": 1782745901495.213,
+    "hash": "28ea988616a8790c08bc8fd9c29ff620"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/platform/__init__.py": {
+    "mtime": 1782745901496.213,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/platform/memorize.py": {
+    "mtime": 1782745901497.213,
+    "hash": "2e1d00b2f52870410e16551f957a1681"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/memory/platform/tools.py": {
+    "mtime": 1782745901497.213,
+    "hash": "6ce88b13676ec72a7c0b22b71837903b"
+  },
+  "C:/Workspace/Repos/memU/examples/proactive/proactive.py": {
+    "mtime": 1782745901498.214,
+    "hash": "b4ed7675281b98a0142d4a08fd2ed8de"
+  },
+  "C:/Workspace/Repos/memU/examples/sealos_support_agent.py": {
+    "mtime": 1782745901507.1707,
+    "hash": "def36bd14f8e4d1406a28eb176bdac12"
+  },
+  "C:/Workspace/Repos/memU/memu_factory.py": {
+    "mtime": 1782745901512.1829,
+    "hash": "3f4ad5c4513b37467d8a248539c8e267"
+  },
+  "C:/Workspace/Repos/memU/proactive.py": {
+    "mtime": 1782745902490.3506,
+    "hash": "a5875d2e7c1334b8578645baf1e06522"
+  },
+  "C:/Workspace/Repos/memU/src/lib.rs": {
+    "mtime": 1782745902497.356,
+    "hash": "6d78436dbfd3692efd9c61adae98ae59"
+  },
+  "C:/Workspace/Repos/memU/src/memu/__init__.py": {
+    "mtime": 1782745902498.3552,
+    "hash": "5214b07a38f59691f63d4c9284e0fb07"
+  },
+  "C:/Workspace/Repos/memU/src/memu/app/__init__.py": {
+    "mtime": 1782745902499.8599,
+    "hash": "701a32df0283190c954ec4b67fba87b1"
+  },
+  "C:/Workspace/Repos/memU/src/memu/app/crud.py": {
+    "mtime": 1782745902500.364,
+    "hash": "bcf3b264f4161d1717d93a39e3a5d51e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/app/memorize.py": {
+    "mtime": 1782745902501.37,
+    "hash": "0bd46c7aecda7448a1990ea08323d6df"
+  },
+  "C:/Workspace/Repos/memU/src/memu/app/patch.py": {
+    "mtime": 1782745902502.154,
+    "hash": "7e1de26c89aa59202bd6c18090bac7ae"
+  },
+  "C:/Workspace/Repos/memU/src/memu/app/retrieve.py": {
+    "mtime": 1782745902502.154,
+    "hash": "732875a138a5a98e426183ecc0e03db0"
+  },
+  "C:/Workspace/Repos/memU/src/memu/app/service.py": {
+    "mtime": 1782745902503.3743,
+    "hash": "5106016f8958127a876282fcacd330ad"
+  },
+  "C:/Workspace/Repos/memU/src/memu/app/settings.py": {
+    "mtime": 1782745902504.3745,
+    "hash": "b8eec28ea9c0e06f2fcc1826822b3860"
+  },
+  "C:/Workspace/Repos/memU/src/memu/blob/__init__.py": {
+    "mtime": 1782745902504.3745,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/blob/local_fs.py": {
+    "mtime": 1782745902505.3743,
+    "hash": "a7e7c3dafaac5608b6dc859045f1899a"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/__init__.py": {
+    "mtime": 1782745902506.374,
+    "hash": "b62d1a1a00eb844cd7c82a86a55b32cc"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/factory.py": {
+    "mtime": 1782745902507.3743,
+    "hash": "1921d54370d38820e365c15ef2d99dc4"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/__init__.py": {
+    "mtime": 1782745902507.3743,
+    "hash": "2a15ead948a535b0b85c95341e1cd8a1"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/models.py": {
+    "mtime": 1782745902508.3743,
+    "hash": "20fcc333b3f1d836f59919b55753a6b7"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/repo.py": {
+    "mtime": 1782745902509.374,
+    "hash": "b07834416cb33a6ebf0ffdf65b9bcaa6"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/repositories/__init__.py": {
+    "mtime": 1782745902510.382,
+    "hash": "2527d7aa205e168027fe0f9231465547"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/repositories/category_item_repo.py": {
+    "mtime": 1782745902510.382,
+    "hash": "b9a0d64885748110f8cdce3fe7b9df41"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/repositories/filter.py": {
+    "mtime": 1782745902511.3872,
+    "hash": "77e026328a80df063d6790f5a6b0e8a4"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/repositories/memory_category_repo.py": {
+    "mtime": 1782745902512.391,
+    "hash": "be2ad3192411ef3215ee7e941b441c7e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/repositories/memory_item_repo.py": {
+    "mtime": 1782745902512.391,
+    "hash": "8f89a157dcb4bf2b7575fe6135f69d77"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/repositories/resource_repo.py": {
+    "mtime": 1782745902513.391,
+    "hash": "4cb53d90ebfd39a4956af0a49a03e618"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/state.py": {
+    "mtime": 1782745902514.391,
+    "hash": "a8bc18880fb9b57d6fc7860d713ccfad"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/inmemory/vector.py": {
+    "mtime": 1782745902514.391,
+    "hash": "d9a69674192b86bf14581580b31413a6"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/interfaces.py": {
+    "mtime": 1782745902515.391,
+    "hash": "fd21b0f15186c1d9f51bb47cd7c3a843"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/models.py": {
+    "mtime": 1782745902516.3916,
+    "hash": "037abdf2f9079d4011c33ca1499c179d"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/__init__.py": {
+    "mtime": 1782745902516.3916,
+    "hash": "d6d261450c6c82bb19c39241c3183e59"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/migration.py": {
+    "mtime": 1782745902517.3918,
+    "hash": "f43d06c8546e941f7733224cf0a65dae"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/migrations/__init__.py": {
+    "mtime": 1782745902518.3918,
+    "hash": "bc2f4e821d91b89fa0ba5a2d2a81656c"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/migrations/env.py": {
+    "mtime": 1782745902518.3918,
+    "hash": "4bf7474024b594f0b5674473055e1096"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/models.py": {
+    "mtime": 1782745902519.8965,
+    "hash": "d691cf117f0457834cb10d22fcc74e65"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/postgres.py": {
+    "mtime": 1782745902520.401,
+    "hash": "72ded34e9d27ff49c089031077dd9602"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/repositories/__init__.py": {
+    "mtime": 1782745902521.4075,
+    "hash": "4d21fc25c7f5c4b29e5988dd052b610c"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/repositories/base.py": {
+    "mtime": 1782745902522.4133,
+    "hash": "2aac924f341aa6deb863e107788aa49c"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/repositories/category_item_repo.py": {
+    "mtime": 1782745902523.132,
+    "hash": "d784287f9bff196a284858677f3af628"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/repositories/memory_category_repo.py": {
+    "mtime": 1782745902524.1377,
+    "hash": "77ab48f555d368e53cfeeee06f36f768"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/repositories/memory_item_repo.py": {
+    "mtime": 1782745902524.1377,
+    "hash": "9b458b5f06fd2ed8eef8424a7ac66764"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/repositories/resource_repo.py": {
+    "mtime": 1782745902525.1394,
+    "hash": "f4aa25cf6d9e2a58a5d35f4b53f66122"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/schema.py": {
+    "mtime": 1782745902526.1382,
+    "hash": "b066eed372538194fad53fb6da3ad5b1"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/postgres/session.py": {
+    "mtime": 1782745902526.1382,
+    "hash": "4617efcf5d55e201d69ab23934bedae9"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/repositories/__init__.py": {
+    "mtime": 1782745902527.137,
+    "hash": "9d11b0305ce824ef17c2354466f92cda"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/repositories/category_item.py": {
+    "mtime": 1782745902528.1372,
+    "hash": "1876708e828f26ccce22e24681365885"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/repositories/memory_category.py": {
+    "mtime": 1782745902528.1372,
+    "hash": "0875429f44cef3a2d6be8df09a9fead3"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/repositories/memory_item.py": {
+    "mtime": 1782745902529.6414,
+    "hash": "073bf5f8cbf1e07df7fd9e8e3be88dac"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/repositories/resource.py": {
+    "mtime": 1782745902530.1458,
+    "hash": "2d50318bcfe7ff277d5404061f531b60"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/__init__.py": {
+    "mtime": 1782745902531.1519,
+    "hash": "9de07c48239e500801a792c87a845665"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/models.py": {
+    "mtime": 1782745902531.1519,
+    "hash": "e4f6d184df2a874297dca1bf73dda477"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/repositories/__init__.py": {
+    "mtime": 1782745902532.1565,
+    "hash": "4437a017e96a937838e8e8ecf702c0ee"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/repositories/base.py": {
+    "mtime": 1782745902533.157,
+    "hash": "09f0445dfb157d5a019e5acc4c339e76"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/repositories/category_item_repo.py": {
+    "mtime": 1782745902534.1562,
+    "hash": "4de7f87cc170631023985aefef84da0a"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/repositories/memory_category_repo.py": {
+    "mtime": 1782745902534.1562,
+    "hash": "f8a76a1cf0a8e9eb9c1bb5a306191c68"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/repositories/memory_item_repo.py": {
+    "mtime": 1782745902535.1558,
+    "hash": "04c7b26d19fab7557fd378d0f0aed17e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/repositories/resource_repo.py": {
+    "mtime": 1782745902536.1582,
+    "hash": "b6670c84c99efbe6ef176918aba6eda5"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/schema.py": {
+    "mtime": 1782745902536.1582,
+    "hash": "9a8bbd8f95907012f2c2f71498924cbc"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/session.py": {
+    "mtime": 1782745902537.1602,
+    "hash": "219f7e14008e0c63b2b4986abdd66a4d"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/sqlite/sqlite.py": {
+    "mtime": 1782745902538.156,
+    "hash": "9ef67150b97020c441c5ad59d58fcc99"
+  },
+  "C:/Workspace/Repos/memU/src/memu/database/state.py": {
+    "mtime": 1782745902538.156,
+    "hash": "24a38922998060ddbe4f9db9ba1e865b"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/__init__.py": {
+    "mtime": 1782745902539.157,
+    "hash": "29f0807316f3ae0397eb689bd0bfb433"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/backends/__init__.py": {
+    "mtime": 1782745902540.1802,
+    "hash": "37c095cb1f36eec088e7c3dc993bf852"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/backends/base.py": {
+    "mtime": 1782745902541.187,
+    "hash": "9a227c26fa4e0bb3297aee6fa3b07826"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/backends/doubao.py": {
+    "mtime": 1782745902541.187,
+    "hash": "111907810ae74db8f8b78c436d9d5e42"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/backends/google.py": {
+    "mtime": 1782745902542.1929,
+    "hash": "b07495f3de0b4f4dac7367fe269b9c0e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/backends/openai.py": {
+    "mtime": 1782745902542.1929,
+    "hash": "45f940556c71a9d816f6da03a7ccc471"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/http_client.py": {
+    "mtime": 1782745902543.1924,
+    "hash": "05ad8182cc9be6b8f71df2e872571fdf"
+  },
+  "C:/Workspace/Repos/memU/src/memu/embedding/openai_sdk.py": {
+    "mtime": 1782745902544.1921,
+    "hash": "27c5c66d061d97c53b31b290fd6ae263"
+  },
+  "C:/Workspace/Repos/memU/src/memu/integrations/__init__.py": {
+    "mtime": 1782745902545.1926,
+    "hash": "1a8da22c12ada87bf0699d5c921a9ed0"
+  },
+  "C:/Workspace/Repos/memU/src/memu/integrations/langgraph.py": {
+    "mtime": 1782745902545.6973,
+    "hash": "bcda094fc4c36a7c2dea330057446d6e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/backends/__init__.py": {
+    "mtime": 1782745902546.7026,
+    "hash": "a4f5a63e80f6bf8ef525df48a81eeb44"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/backends/base.py": {
+    "mtime": 1782745902546.7026,
+    "hash": "3c4d5ea9dc5a7847535a954e51c5a42e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/backends/doubao.py": {
+    "mtime": 1782745902547.703,
+    "hash": "88ec0bf0ddf2bea205e1906838e046d9"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/backends/google.py": {
+    "mtime": 1782745902547.703,
+    "hash": "8e4cfabce783b4165cb7b75c73756b39"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/backends/grok.py": {
+    "mtime": 1782745902549.208,
+    "hash": "c7110b295da2c124759ac0427c40d058"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/backends/openai.py": {
+    "mtime": 1782745902550.2144,
+    "hash": "e352fc92e99da93cea7b4c1e11b62a0e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/backends/openrouter.py": {
+    "mtime": 1782745902550.7195,
+    "hash": "ab86ed26dfb8bcb97dcaa7791347b389"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/fallback_client.py": {
+    "mtime": 1782745902551.725,
+    "hash": "005b0a409d7e5b43491ba03bac80396b"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/http_client.py": {
+    "mtime": 1782745902552.153,
+    "hash": "a3c2d03c6e534437159ca037ddbfc368"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/lazyllm_client.py": {
+    "mtime": 1782745902552.7249,
+    "hash": "6dee006d9b3506134921dd6177c7d5a2"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/openai_sdk.py": {
+    "mtime": 1782745902553.726,
+    "hash": "3b58fad07c55813ea77971ddde0488c8"
+  },
+  "C:/Workspace/Repos/memU/src/memu/llm/wrapper.py": {
+    "mtime": 1782745902554.726,
+    "hash": "683291f27812fcf635577545f5cd3f45"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/__init__.py": {
+    "mtime": 1782745902555.7246,
+    "hash": "698a5d17a44d0f03d819541c62a22954"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/category_patch/__init__.py": {
+    "mtime": 1782745902555.7246,
+    "hash": "68e60e1136d3de7ea36f208872a4b079"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/category_patch/category.py": {
+    "mtime": 1782745902556.725,
+    "hash": "c7708470bcf1271433d298941b5cab04"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/category_summary/__init__.py": {
+    "mtime": 1782745902557.725,
+    "hash": "50a3e1ea305d1bf48c6cb457de9c3d1a"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/category_summary/category.py": {
+    "mtime": 1782745902557.725,
+    "hash": "e9f2f5b5cdb72a1ae503ab64c4d01a8a"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/category_summary/category_with_refs.py": {
+    "mtime": 1782745902559.2302,
+    "hash": "ec7a9c49ec2c64b9b0c0b2722c4c3548"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/memory_type/__init__.py": {
+    "mtime": 1782745902559.2302,
+    "hash": "08345a0d1493fa4f832762b84395ce79"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/memory_type/behavior.py": {
+    "mtime": 1782745902560.7407,
+    "hash": "d509f173f1b7f9ed0df46a3894373e94"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/memory_type/event.py": {
+    "mtime": 1782745902560.7407,
+    "hash": "99753b0694dae77aa0a2dc38c4a785f3"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/memory_type/knowledge.py": {
+    "mtime": 1782745902562.1558,
+    "hash": "e5abe3692fe7689d450a2fbb9baadd67"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/memory_type/profile.py": {
+    "mtime": 1782745902562.7466,
+    "hash": "0e86f9c5b8f72665eed983f9b6d7b0e3"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/memory_type/skill.py": {
+    "mtime": 1782745902562.7466,
+    "hash": "c24d6b4a8852f9f6f5e6f6353af79d7e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/preprocess/__init__.py": {
+    "mtime": 1782745902563.7463,
+    "hash": "051ec7e5e5518d832687f8285b0303d0"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/preprocess/audio.py": {
+    "mtime": 1782745902564.7466,
+    "hash": "c9dc069ca792bb92d0f75db87b6e83a8"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/preprocess/conversation.py": {
+    "mtime": 1782745902565.7466,
+    "hash": "f4a523c19eed9a3638ecda2988613c82"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/preprocess/document.py": {
+    "mtime": 1782745902565.7466,
+    "hash": "3204361d1d0c685c01ec8f220b56bd9b"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/preprocess/image.py": {
+    "mtime": 1782745902566.7463,
+    "hash": "e63f39cca8bfffdd98da4efbd1c08f63"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/preprocess/video.py": {
+    "mtime": 1782745902567.7468,
+    "hash": "6614bf715bac2e9b8cda12b1e15e00a3"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/__init__.py": {
+    "mtime": 1782745902567.7468,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/judger.py": {
+    "mtime": 1782745902569.2505,
+    "hash": "4f303284c25c1641b1b0f3086e371551"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/llm_category_ranker.py": {
+    "mtime": 1782745902569.2505,
+    "hash": "fa5bfe2024a0da7b99849ff262b925b6"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/llm_item_ranker.py": {
+    "mtime": 1782745902570.2551,
+    "hash": "99704d98bc5edcc60c80e95ffeb6c06f"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/llm_resource_ranker.py": {
+    "mtime": 1782745902570.2551,
+    "hash": "4a43cd9407bd1afe24b3c4fbc90b5900"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/pre_retrieval_decision.py": {
+    "mtime": 1782745902571.4734,
+    "hash": "3851001a02c0f0c3fbeaf93fed20fbdb"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/query_rewriter.py": {
+    "mtime": 1782745902572.4749,
+    "hash": "c8dd544cb9f1197d4400dfcb6a8645ac"
+  },
+  "C:/Workspace/Repos/memU/src/memu/prompts/retrieve/query_rewriter_judger.py": {
+    "mtime": 1782745902573.4744,
+    "hash": "bd55cebb30b5040c2b9e66bb57c27655"
+  },
+  "C:/Workspace/Repos/memU/src/memu/utils/__init__.py": {
+    "mtime": 1782745902573.4744,
+    "hash": "48e854bbfe8e71b2eaba01af7112ab34"
+  },
+  "C:/Workspace/Repos/memU/src/memu/utils/conversation.py": {
+    "mtime": 1782745902574.474,
+    "hash": "ef35795ceb6fff089eab32d58aaef3fa"
+  },
+  "C:/Workspace/Repos/memU/src/memu/utils/references.py": {
+    "mtime": 1782745902575.474,
+    "hash": "4678cd05d99558ff2f24302ee36b50d8"
+  },
+  "C:/Workspace/Repos/memU/src/memu/utils/video.py": {
+    "mtime": 1782745902576.4734,
+    "hash": "1eb2e36a9b648cccd96b48e9ed50c2b6"
+  },
+  "C:/Workspace/Repos/memU/src/memu/workflow/__init__.py": {
+    "mtime": 1782745902577.4739,
+    "hash": "48b6980b49c0eb20a0d334d14598fa36"
+  },
+  "C:/Workspace/Repos/memU/src/memu/workflow/interceptor.py": {
+    "mtime": 1782745902577.4739,
+    "hash": "57d264eea613b3ace9df4fbf120c221f"
+  },
+  "C:/Workspace/Repos/memU/src/memu/workflow/pipeline.py": {
+    "mtime": 1782745902578.4744,
+    "hash": "3379fed456d7b20fba03467cad0c4600"
+  },
+  "C:/Workspace/Repos/memU/src/memu/workflow/runner.py": {
+    "mtime": 1782745902579.4734,
+    "hash": "2e368117e92fb34db37e2c719fd187c2"
+  },
+  "C:/Workspace/Repos/memU/src/memu/workflow/step.py": {
+    "mtime": 1782745902579.9783,
+    "hash": "e6f9651e9384e93b541382d35588b8a6"
+  },
+  "C:/Workspace/Repos/memU/test-00-loop.py": {
+    "mtime": 1782745902580.9856,
+    "hash": "7e1c367fe2fae269eaa59d90de3e2f93"
+  },
+  "C:/Workspace/Repos/memU/test-01-database.py": {
+    "mtime": 1782745902580.9856,
+    "hash": "708d75b58148f719db40d7dfce20dac5"
+  },
+  "C:/Workspace/Repos/memU/test-02-memorize.py": {
+    "mtime": 1782745902582.5479,
+    "hash": "fc34586e3c117669bc935b04aa1fe56a"
+  },
+  "C:/Workspace/Repos/memU/test-03-retrieve.py": {
+    "mtime": 1782745902583.555,
+    "hash": "18c974247a0032716b4fcf491aa5cc7d"
+  },
+  "C:/Workspace/Repos/memU/test_fallback_smoke.py": {
+    "mtime": 1782745902583.555,
+    "hash": "b9a8c6bc137399ea5894800afc27ef15"
+  },
+  "C:/Workspace/Repos/memU/tests/__init__.py": {
+    "mtime": 1782745902584.554,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:/Workspace/Repos/memU/tests/integrations/test_langgraph.py": {
+    "mtime": 1782745902586.5535,
+    "hash": "07e2bfa1f4d9321f7a05e3582a6444b3"
+  },
+  "C:/Workspace/Repos/memU/tests/llm/test_grok_provider.py": {
+    "mtime": 1782745902587.5544,
+    "hash": "85efc0235d5998a294649187f831d73a"
+  },
+  "C:/Workspace/Repos/memU/tests/rust_entry_test.py": {
+    "mtime": 1782745902587.5544,
+    "hash": "d65bb3eee5e87cfcbf083f3d19ab8490"
+  },
+  "C:/Workspace/Repos/memU/tests/test_inmemory.py": {
+    "mtime": 1782745902588.5532,
+    "hash": "758da1b2c20f015f1ec503d9655880cc"
+  },
+  "C:/Workspace/Repos/memU/tests/test_lazyllm.py": {
+    "mtime": 1782745902589.5544,
+    "hash": "66617d5615cab4523fc7fcdc0f2b4e2e"
+  },
+  "C:/Workspace/Repos/memU/tests/test_openrouter.py": {
+    "mtime": 1782745902590.0583,
+    "hash": "6a594ebcf6bb4731947c80cdd55fb44c"
+  },
+  "C:/Workspace/Repos/memU/tests/test_postgres.py": {
+    "mtime": 1782745902591.065,
+    "hash": "0c9be11493fe99fe6f386166a8c16b8f"
+  },
+  "C:/Workspace/Repos/memU/tests/test_references.py": {
+    "mtime": 1782745902591.065,
+    "hash": "a7613e89a1feec98755dc112ca26c2c8"
+  },
+  "C:/Workspace/Repos/memU/tests/test_sqlite.py": {
+    "mtime": 1782745902592.0662,
+    "hash": "545e07bbecc9b3f614e5fe534493c95f"
+  },
+  "C:/Workspace/Repos/memU/tests/utils/test_conversation.py": {
+    "mtime": 1782745902592.6626,
+    "hash": "15f4de2e56f76fb4c5849cbe215eb840"
+  },
+  "C:/Workspace/Repos/memU/.agent/workflows/deploy.md": {
+    "mtime": 1782745901417.674,
+    "hash": "39d45c161d9d74843efdfb491a5a911b"
+  },
+  "C:/Workspace/Repos/memU/.github/ISSUE_TEMPLATE/bug_report.yml": {
+    "mtime": 1782745901417.674,
+    "hash": "c8f8e7ef1e42fcecf9d71556b8a7d037"
+  },
+  "C:/Workspace/Repos/memU/.github/ISSUE_TEMPLATE/config.yml": {
+    "mtime": 1782745901419.1785,
+    "hash": "bbe451f4fb16c4ce2cd44e75227f8468"
+  },
+  "C:/Workspace/Repos/memU/.github/ISSUE_TEMPLATE/feature_request.yml": {
+    "mtime": 1782745901420.688,
+    "hash": "59d3202156ef158831686d5ce74d2c40"
+  },
+  "C:/Workspace/Repos/memU/.github/ISSUE_TEMPLATE/hackathon_task.yml": {
+    "mtime": 1782745901420.688,
+    "hash": "55047b1fda135ff20b7302917cc28b44"
+  },
+  "C:/Workspace/Repos/memU/.github/ISSUE_TEMPLATE/improvement_suggestion.yml": {
+    "mtime": 1782745901421.693,
+    "hash": "fa43a15939b8abd3e30f767454be9bda"
+  },
+  "C:/Workspace/Repos/memU/.github/workflows/build.yml": {
+    "mtime": 1782745901423.054,
+    "hash": "344be2c746ba7c8bb0f63e8d3acd4fd7"
+  },
+  "C:/Workspace/Repos/memU/.github/workflows/pr-title.yml": {
+    "mtime": 1782745901423.6938,
+    "hash": "b2027acf5e5ecdc125ee56ba7b1b0f56"
+  },
+  "C:/Workspace/Repos/memU/.github/workflows/release-please.yml": {
+    "mtime": 1782745901423.6938,
+    "hash": "a709944e39844fe022a130e706b25583"
+  },
+  "C:/Workspace/Repos/memU/AGENT_ORCHESTRATION.md": {
+    "mtime": 1782745901427.6938,
+    "hash": "282f605eab0fce8142a7829bbfe058be"
+  },
+  "C:/Workspace/Repos/memU/CHANGELOG.md": {
+    "mtime": 1782745901430.2043,
+    "hash": "773b8f4dec3c39f7b47879c3529bb529"
+  },
+  "C:/Workspace/Repos/memU/CONTRIBUTING.md": {
+    "mtime": 1782745901431.6438,
+    "hash": "26aa013c14ad3347674334536c2264eb"
+  },
+  "C:/Workspace/Repos/memU/DECISION_LOG.md": {
+    "mtime": 1782745901433.6438,
+    "hash": "9843d09566efff6f6e2c5a1a4e355124"
+  },
+  "C:/Workspace/Repos/memU/LICENSE.txt": {
+    "mtime": 1782745901434.6443,
+    "hash": "98c48c032a2f4a9985266299e3e959d0"
+  },
+  "C:/Workspace/Repos/memU/MISSION_CORE.md": {
+    "mtime": 1782745901435.6438,
+    "hash": "af42478e3f83494a69e4486411454851"
+  },
+  "C:/Workspace/Repos/memU/PROJECT_RULES.md": {
+    "mtime": 1782745901437.644,
+    "hash": "c9aa396727b839f24d2689f97679aa67"
+  },
+  "C:/Workspace/Repos/memU/PROTOCOL_LOG.md": {
+    "mtime": 1782745901437.644,
+    "hash": "9885108e23e7c661f0f2aa2f331fad8b"
+  },
+  "C:/Workspace/Repos/memU/README-SETUP.md": {
+    "mtime": 1782745901439.1504,
+    "hash": "0f976599e35071c46162fa02b62c668a"
+  },
+  "C:/Workspace/Repos/memU/README.md": {
+    "mtime": 1782745901440.1555,
+    "hash": "848814b1ece50d2bf7fcd0900ce2268b"
+  },
+  "C:/Workspace/Repos/memU/REPORT.md": {
+    "mtime": 1782745901441.418,
+    "hash": "829c4938856d51499e2d7f53f681693a"
+  },
+  "C:/Workspace/Repos/memU/docker-compose.yml": {
+    "mtime": 1782745901474.1394,
+    "hash": "50d61038054d353028a24698ee7b9157"
+  },
+  "C:/Workspace/Repos/memU/docs/integrations/grok.md": {
+    "mtime": 1782745901475.1392,
+    "hash": "5ee142266765679353e2fecbf5e30cdd"
+  },
+  "C:/Workspace/Repos/memU/docs/langgraph_integration.md": {
+    "mtime": 1782745901476.139,
+    "hash": "2123536e7e60b81748e1f58acff3222b"
+  },
+  "C:/Workspace/Repos/memU/docs/providers/grok.md": {
+    "mtime": 1782745901476.139,
+    "hash": "9bbfd2f2e0fca1ee04bf8acba5e5a849"
+  },
+  "C:/Workspace/Repos/memU/docs/sealos_use_case.md": {
+    "mtime": 1782745901477.1394,
+    "hash": "822cff5fc79805ca98718b6de1243d29"
+  },
+  "C:/Workspace/Repos/memU/docs/sqlite.md": {
+    "mtime": 1782745901478.139,
+    "hash": "f3b742d14085666e72b4bf76a1a44d20"
+  },
+  "C:/Workspace/Repos/memU/docs/tutorials/getting_started.md": {
+    "mtime": 1782745901478.139,
+    "hash": "da8200817f3de406e37925fcf3e6ec1b"
+  },
+  "C:/Workspace/Repos/memU/env-example.txt": {
+    "mtime": 1782745901479.141,
+    "hash": "4efe7779e325fb07c4b5c991c97cea17"
+  },
+  "C:/Workspace/Repos/memU/examples/resources/docs/doc1.txt": {
+    "mtime": 1782745901502.1516,
+    "hash": "642ebbc5108f6f6a881cc0daa278517a"
+  },
+  "C:/Workspace/Repos/memU/examples/resources/docs/doc2.txt": {
+    "mtime": 1782745901502.1516,
+    "hash": "d09ac6bd58892048174fba908758f341"
+  },
+  "C:/Workspace/Repos/memU/examples/resources/logs/log1.txt": {
+    "mtime": 1782745901505.171,
+    "hash": "1ae9a58d7b36772aae006bb1e19099fa"
+  },
+  "C:/Workspace/Repos/memU/examples/resources/logs/log2.txt": {
+    "mtime": 1782745901506.175,
+    "hash": "578d2dcffa526438bd793df59cb463ef"
+  },
+  "C:/Workspace/Repos/memU/examples/resources/logs/log3.txt": {
+    "mtime": 1782745901506.175,
+    "hash": "4b1e18dfcaade44cde6cc061cf55076d"
+  },
+  "C:/Workspace/Repos/memU/gemini.md": {
+    "mtime": 1782745901508.1714,
+    "hash": "a1ecedab3dc6bc92a0d1491d65b02f88"
+  },
+  "C:/Workspace/Repos/memU/readme/README_en.md": {
+    "mtime": 1782745902492.1538,
+    "hash": "29fc2d47ee63ce7fd49542ced57f42f0"
+  },
+  "C:/Workspace/Repos/memU/readme/README_es.md": {
+    "mtime": 1782745902492.1538,
+    "hash": "823e7523123de21220a4e410d590ac7d"
+  },
+  "C:/Workspace/Repos/memU/readme/README_fr.md": {
+    "mtime": 1782745902493.356,
+    "hash": "81d85f3dd75b47c1d156b920d7df6da6"
+  },
+  "C:/Workspace/Repos/memU/readme/README_ja.md": {
+    "mtime": 1782745902494.3564,
+    "hash": "87327b71a59256eb68b14652d3d9fc3d"
+  },
+  "C:/Workspace/Repos/memU/readme/README_ko.md": {
+    "mtime": 1782745902494.3564,
+    "hash": "84783280533dfe1d20231d0f732ac1a4"
+  },
+  "C:/Workspace/Repos/memU/readme/README_zh.md": {
+    "mtime": 1782745902495.3557,
+    "hash": "35d2e6b3a053f4dc687380124597b99f"
+  }
+}

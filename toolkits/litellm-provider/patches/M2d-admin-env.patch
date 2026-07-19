@@ -1,0 +1,63 @@
+diff --git a/.env.example b/.env.example
+index 41e7424..c28b3d2 100644
+--- a/.env.example
++++ b/.env.example
+@@ -26,6 +26,13 @@ OPENCODE_API_KEY=""
+ ZAI_API_KEY=""
+ 
+ 
++# LiteLLM Config (OpenAI-compatible Chat Completions at litellm-server)
++# Use LiteLLM Proxy as a single-entry-point for 22+ models from
++# NVIDIA NIM, OpenCode Go/Zen, OpenRouter, local-vllm, etc.
++LITELLM_API_KEY=""
++LITELLM_BASE_URL="http://127.0.0.1:4000"
++
++
+ # LM Studio Config (local provider, no API key required)
+ LM_STUDIO_BASE_URL="http://localhost:1234/v1"
+ 
+@@ -83,6 +90,7 @@ LLAMACPP_PROXY=""
+ KIMI_PROXY=""
+ WAFER_PROXY=""
+ OPENCODE_PROXY=""
++LITELLM_PROXY=""
+ ZAI_PROXY=""
+ 
+ PROVIDER_RATE_LIMIT=1
+diff --git a/api/admin_config.py b/api/admin_config.py
+index f5c4d7e..a7b2a2b 100644
+--- a/api/admin_config.py
++++ b/api/admin_config.py
+@@ -269,6 +269,32 @@ FIELDS: tuple[ConfigFieldSpec, ...] = (
+         secret=True,
+         advanced=True,
+     ),
++    ConfigFieldSpec(
++        "LITELLM_API_KEY",
++        "LiteLLM API Key",
++        "providers",
++        "secret",
++        settings_attr="litellm_api_key",
++        secret=True,
++        description="LiteLLM Proxy master key (or virtual key for budget tracking).",
++    ),
++    ConfigFieldSpec(
++        "LITELLM_BASE_URL",
++        "LiteLLM Base URL",
++        "providers",
++        settings_attr="litellm_base_url",
++        default="http://127.0.0.1:4000",
++        description="LiteLLM Proxy URL. Use 'http://litellm:4000' inside Docker.",
++    ),
++    ConfigFieldSpec(
++        "LITELLM_PROXY",
++        "LiteLLM Proxy",
++        "providers",
++        "secret",
++        settings_attr="litellm_proxy",
++        secret=True,
++        advanced=True,
++    ),
+     ConfigFieldSpec(
+         "MODEL",
+         "Default Model",

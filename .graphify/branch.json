@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "branchName": "production-setup",
+  "worktreePath": "C:\\Workspace\\Repos\\memU",
+  "upstream": "origin/production-setup",
+  "mergeBase": "bb5b4ef09eb3c68b5b62b2f4a878cf5d70db5a41",
+  "firstSeenHead": "a1ae8c7cd21f88a2b60ca07ebe0b6397dddeb7cd",
+  "lastSeenHead": "a1ae8c7cd21f88a2b60ca07ebe0b6397dddeb7cd",
+  "lastAnalyzedHead": "a1ae8c7cd21f88a2b60ca07ebe0b6397dddeb7cd",
+  "stale": false,
+  "staleReason": null,
+  "staleSince": null,
+  "lifecycleEvent": null,
+  "createdAt": "2026-07-06T18:14:59.335Z",
+  "updatedAt": "2026-07-06T18:14:59.335Z"
+}

@@ -1,0 +1,14 @@
+**Session-Bericht:** `Handover/aktuell/SESSION_2026-05-22.md` — 196 Zeilen, 10 Abschnitte.
+
+**Backup:** `walkthrough_v20260522.md` im selben Ordner — 10,8 KB, identisch mit `walkthrough.md`. Entstand vermutlich automatisch als Versionierungs-Backup beim Edit der walkthrough.md. Du kannst es löschen, es ist 1:1 identisch.
+
+**Wo alles liegt:**
+
+```
+Handover/aktuell/
+├── implementation_plan.md      (15 KB) — Fahrplan + Referenzen
+├── task.md                      (4 KB) — Status + Konventionen
+├── walkthrough.md              (11 KB) — Session-Historie (alle Sessions)  
+├── walkthrough_v20260522.md    (11 KB) — Backup (identisch, kann weg)
+└── SESSION_2026-05-22.md       (8 KB) — NEU: Ausführlicher Bericht dieser Session
+```

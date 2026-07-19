@@ -1,0 +1,105 @@
+warning: in the working copy of 'tests/providers/test_litellm_provider.py', LF will be replaced by CRLF the next time Git touches it
+diff --git a/tests/providers/test_litellm_provider.py b/tests/providers/test_litellm_provider.py
+new file mode 100644
+index 0000000..15e4237
+--- /dev/null
++++ b/tests/providers/test_litellm_provider.py
+@@ -0,0 +1,81 @@
++"""Tests for LiteLLM provider (Bundle LiteLLM-Provider M3)."""
++
++from __future__ import annotations
++
++from unittest.mock import AsyncMock, MagicMock, patch
++
++import pytest
++
++
++class TestLiteLLMDescriptor:
++    """Test the litellm ProviderDescriptor in the catalog."""
++
++    def test_descriptor_in_catalog(self):
++        """litellm is registered in PROVIDER_CATALOG."""
++        from config.provider_catalog import PROVIDER_CATALOG
++        assert "litellm" in PROVIDER_CATALOG
++
++    def test_descriptor_fields(self):
++        """ProviderDescriptor has the expected field values."""
++        from config.provider_catalog import PROVIDER_CATALOG
++        d = PROVIDER_CATALOG["litellm"]
++        assert d.provider_id == "litellm"
++        assert d.transport_type == "openai_chat"
++        assert d.credential_env == "LITELLM_API_KEY"
++        assert d.credential_attr == "litellm_api_key"
++        assert d.base_url_attr == "litellm_base_url"
++        assert d.proxy_attr == "litellm_proxy"
++        assert d.default_base_url == "http://127.0.0.1:4000"
++        assert "chat" in d.capabilities
++        assert "streaming" in d.capabilities
++        assert "tools" in d.capabilities
++
++    def test_default_base_url_in_defaults(self):
++        """LITELLM_DEFAULT_BASE is re-exported from providers.defaults."""
++        from providers.defaults import LITELLM_DEFAULT_BASE
++        assert LITELLM_DEFAULT_BASE == "http://127.0.0.1:4000"
++
++
++class TestLiteLLMProviderInstantiation:
++    """Test that LiteLLMProvider can be created and behaves correctly."""
++
++    def test_provider_instantiation(self):
++        """LiteLLMProvider can be instantiated with a ProviderConfig."""
++        from providers.litellm import LiteLLMProvider
++        from providers.base import ProviderConfig
++        config = ProviderConfig(
++            api_key="sk-test",
++            base_url="http://127.0.0.1:4000",
++        )
++        with patch("providers.openai_compat.AsyncOpenAI"):
++            provider = LiteLLMProvider(config)
++        assert provider._provider_name == "LITELLM"
++        assert provider._base_url == "http://127.0.0.1:4000"
++
++    def test_provider_uses_default_base_url(self):
++        """When config.base_url is None, the default URL is used."""
++        from providers.litellm import LiteLLMProvider
++        from providers.base import ProviderConfig
++        config = ProviderConfig(
++            api_key="sk-test",
++            base_url=None,
++        )
++        with patch("providers.openai_compat.AsyncOpenAI"):
++            provider = LiteLLMProvider(config)
++        assert provider._base_url == "http://127.0.0.1:4000"
++
++
++class TestLiteLLMSettings:
++    """Test LiteLLM settings fields."""
++
++    def test_litellm_api_key_from_env(self, monkeypatch):
++        from config.settings import Settings
++        monkeypatch.setenv("LITELLM_API_KEY", "sk-litellm-test")
++        settings = Settings()
++        assert settings.litellm_api_key == "sk-litellm-test"
++
++    def test_litellm_base_url_from_env(self, monkeypatch):
++        from config.settings import Settings
++        monkeypatch.setenv("LITELLM_BASE_URL", "http://custom:5000")
++        settings = Settings()
++        assert settings.litellm_base_url == "http://custom:5000"
+diff --git a/tests/providers/test_registry.py b/tests/providers/test_registry.py
+index a96271b..1d8e64a 100644
+--- a/tests/providers/test_registry.py
++++ b/tests/providers/test_registry.py
+@@ -183,3 +183,12 @@ async def test_provider_registry_cleanup_exceptiongroup_on_multiple_failures() -
+         await reg.cleanup()
+     assert len(exc_info.value.exceptions) == 2
+     assert reg._providers == {}
++
++
++def test_create_provider_instantiates_litellm() -> None:
++    """litellm is added to the create_provider cases."""
++    from providers.litellm import LiteLLMProvider
++    settings = _make_settings(litellm_api_key="sk-litellm-test")
++    with patch("providers.openai_compat.AsyncOpenAI"):
++        provider = create_provider("litellm", settings)
++    assert isinstance(provider, LiteLLMProvider)

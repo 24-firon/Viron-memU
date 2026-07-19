@@ -1,0 +1,224 @@
+memU/
+├── .agent/
+│   └── workflows/
+│       └── … (1 Dateien)
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   └── … (5 Dateien)
+│   └── workflows/
+│       └── … (3 Dateien)
+├── "IMPORT/
+│   └── # Vollst/
+│       └── 303/
+│           └── … (1 Dateien)
+├── ANDERER WIN NUTZER/
+│   ├── 1.txt
+│   ├── 2.txt
+│   └── TERMINATED_ERROR_GUIDE.md
+├── assets/
+│   ├── partners/
+│   │   └── … (6 Dateien)
+│   ├── usecase/
+│   │   └── … (7 Dateien)
+│   ├── banner.png
+│   ├── benchmark.png
+│   ├── memorize.png
+│   ├── memUbot.png
+│   ├── qrcode.png
+│   ├── retrieve.png
+│   ├── star.gif
+│   └── structure.png
+├── data/
+│   └── resources/
+│       └── … (17 Dateien)
+├── docs/
+│   ├── integrations/
+│   │   └── … (1 Dateien)
+│   ├── providers/
+│   │   └── … (1 Dateien)
+│   ├── tutorials/
+│   │   └── … (1 Dateien)
+│   ├── langgraph_integration.md
+│   ├── sealos_use_case.md
+│   └── sqlite.md
+├── examples/
+│   ├── proactive/
+│   │   ├── memory/
+│   │   │   ├── local/
+│   │   │   │   └── … (4 Dateien)
+│   │   │   ├── platform/
+│   │   │   │   └── … (3 Dateien)
+│   │   │   └── … (1 Dateien)
+│   │   └── … (1 Dateien)
+│   ├── resources/
+│   │   ├── conversations/
+│   │   │   └── … (3 Dateien)
+│   │   ├── docs/
+│   │   │   └── … (2 Dateien)
+│   │   ├── images/
+│   │   │   └── … (1 Dateien)
+│   │   └── logs/
+│   │       └── … (3 Dateien)
+│   ├── example_1_conversation_memory.py
+│   ├── example_2_skill_extraction.py
+│   ├── example_3_multimodal_memory.py
+│   ├── example_4_openrouter_memory.py
+│   ├── example_5_with_lazyllm_client.py
+│   ├── getting_started_robust.py
+│   ├── langgraph_demo.py
+│   └── sealos_support_agent.py
+├── IMPORT/
+│   ├── LiteLLM_Onboarding.md
+│   └── Memory-System Deep-Dive_ memU vs. Mem0 vs. Alterna.md
+├── pgdata/
+│   ├── base/
+│   │   ├── 1/
+│   │   │   └── … (299 Dateien)
+│   │   ├── 16384/
+│   │   │   └── … (330 Dateien)
+│   │   ├── 4/
+│   │   │   └── … (298 Dateien)
+│   │   └── 5/
+│   │       └── … (299 Dateien)
+│   ├── global/
+│   │   └── … (63 Dateien)
+│   ├── pg_logical/
+│   │   └── … (1 Dateien)
+│   ├── pg_multixact/
+│   │   ├── members/
+│   │   │   └── … (1 Dateien)
+│   │   └── offsets/
+│   │       └── … (1 Dateien)
+│   ├── pg_subtrans/
+│   │   └── … (1 Dateien)
+│   ├── pg_wal/
+│   │   └── … (1 Dateien)
+│   ├── pg_xact/
+│   │   └── … (1 Dateien)
+│   ├── pg_hba.conf
+│   ├── pg_ident.conf
+│   ├── PG_VERSION
+│   ├── postgresql.auto.conf
+│   ├── postgresql.conf
+│   ├── postmaster.opts
+│   └── postmaster.pid
+├── readme/
+│   ├── README_en.md
+│   ├── README_es.md
+│   ├── README_fr.md
+│   ├── README_ja.md
+│   ├── README_ko.md
+│   └── README_zh.md
+├── src/
+│   ├── memu/
+│   │   ├── app/
+│   │   │   └── … (7 Dateien)
+│   │   ├── blob/
+│   │   │   └── … (2 Dateien)
+│   │   ├── database/
+│   │   │   ├── inmemory/
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── … (6 Dateien)
+│   │   │   │   └── … (5 Dateien)
+│   │   │   ├── postgres/
+│   │   │   │   ├── migrations/
+│   │   │   │   │   └── … (2 Dateien)
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── … (6 Dateien)
+│   │   │   │   └── … (6 Dateien)
+│   │   │   ├── repositories/
+│   │   │   │   └── … (5 Dateien)
+│   │   │   ├── sqlite/
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── … (6 Dateien)
+│   │   │   │   └── … (5 Dateien)
+│   │   │   └── … (5 Dateien)
+│   │   ├── embedding/
+│   │   │   ├── backends/
+│   │   │   │   └── … (5 Dateien)
+│   │   │   └── … (3 Dateien)
+│   │   ├── integrations/
+│   │   │   └── … (2 Dateien)
+│   │   ├── llm/
+│   │   │   ├── backends/
+│   │   │   │   └── … (7 Dateien)
+│   │   │   └── … (5 Dateien)
+│   │   ├── prompts/
+│   │   │   ├── category_patch/
+│   │   │   │   └── … (2 Dateien)
+│   │   │   ├── category_summary/
+│   │   │   │   └── … (3 Dateien)
+│   │   │   ├── memory_type/
+│   │   │   │   └── … (6 Dateien)
+│   │   │   ├── preprocess/
+│   │   │   │   └── … (6 Dateien)
+│   │   │   ├── retrieve/
+│   │   │   │   └── … (8 Dateien)
+│   │   │   └── … (1 Dateien)
+│   │   ├── utils/
+│   │   │   └── … (4 Dateien)
+│   │   ├── workflow/
+│   │   │   └── … (5 Dateien)
+│   │   └── … (2 Dateien)
+│   └── lib.rs
+├── tests/
+│   ├── example/
+│   │   └── … (1 Dateien)
+│   ├── integrations/
+│   │   └── … (1 Dateien)
+│   ├── llm/
+│   │   └── … (1 Dateien)
+│   ├── utils/
+│   │   └── … (1 Dateien)
+│   ├── __init__.py
+│   ├── rust_entry_test.py
+│   ├── test_inmemory.py
+│   ├── test_lazyllm.py
+│   ├── test_openrouter.py
+│   ├── test_postgres.py
+│   ├── test_references.py
+│   └── test_sqlite.py
+├── toolkits/
+│   └── litellm-provider/
+│       ├── docs/
+│       │   └── … (7 Dateien)
+│       ├── patches/
+│       │   └── … (5 Dateien)
+│       ├── tests/
+│       │   └── … (1 Dateien)
+│       └── … (6 Dateien)
+├── .gitignore
+├── .graphifyignore
+├── .pre-commit-config.yaml
+├── .python-version
+├── AGENT_ORCHESTRATION.md
+├── Cargo.lock
+├── Cargo.toml
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── DECISION_LOG.md
+├── docker-compose.yml
+├── env-example.txt
+├── gemini.md
+├── LICENSE.txt
+├── Makefile
+├── MANIFEST.in
+├── memu_factory.py
+├── memU-multi-provider-v1.0.zip
+├── memU.code-workspace
+├── MISSION_CORE.md
+├── proactive.py
+├── PROJECT_RULES.md
+├── PROTOCOL_LOG.md
+├── pyproject.toml
+├── README-SETUP.md
+├── README.md
+├── REPORT.md
+├── setup.cfg
+├── setup.sh
+├── test_fallback_smoke.py
+├── test-00-loop.py
+├── test-01-database.py
+├── test-02-memorize.py
+├── test-03-retrieve.py
+└── uv.lock

@@ -1,0 +1,15 @@
+**Alle Dateien in `Handover/aktuell/`:**
+
+| Datei | Größe | Zweck |
+|---|---|---|
+| `walkthrough.md` | 10.844 B | **Alte Historie** (vor dieser Session) — unverändert |
+| `walkthrough_v20260522.md` | 10.844 B | **Backup** von walkthrough.md — identische Kopie als Sicherung |
+| `implementation_plan.md` | 15.348 B | Plan, Konventionen, Animation-Infrastruktur — unverändert |
+| `task.md` | 4.439 B | Task-Checkliste — unverändert |
+| `SESSION_2026-05-22.md` | 8.412 B | **PART 1:** Domain/API/Datenschutz/Footer/Merge (erste Session-Hälfte) |
+| `SESSION_2026-05-22_PART2.md` | 3.793 B | **PART 2:** Spline Runtime, HeroSection, TrustBand, Knowledge-Docs, Cleanup |
+
+**Ablauf:**
+1. `walkthrough.md` existierte vor der Session → **Backup** als `walkthrough_v20260522.md` (identische Kopie)
+2. `walkthrough.md` selbst blieb **unverändert** (nichts überschrieben!)
+3. Neue Berichte wurden als **separate Dateien** angelegt: `SESSION_2026-05-22.md` + `_PART2.md`

@@ -1,0 +1,75 @@
+diff --git a/config/provider_catalog.py b/config/provider_catalog.py
+index 90b7caf..a3e6918 100644
+--- a/config/provider_catalog.py
++++ b/config/provider_catalog.py
+@@ -26,6 +26,7 @@ LLAMACPP_DEFAULT_BASE = "http://localhost:8080/v1"
+ OLLAMA_DEFAULT_BASE = "http://localhost:11434"
+ OPENCODE_DEFAULT_BASE = "https://opencode.ai/zen/v1"
+ ZAI_DEFAULT_BASE = "https://api.z.ai/api/coding/paas/v4"
++LITELLM_DEFAULT_BASE = "http://127.0.0.1:4000"
+ 
+ 
+ @dataclass(frozen=True, slots=True)
+@@ -137,6 +138,17 @@ PROVIDER_CATALOG: dict[str, ProviderDescriptor] = {
+         proxy_attr="opencode_proxy",
+         capabilities=("chat", "streaming", "tools", "thinking", "rate_limit"),
+     ),
++    "litellm": ProviderDescriptor(
++        provider_id="litellm",
++        transport_type="openai_chat",
++        credential_env="LITELLM_API_KEY",
++        credential_url="https://github.com/BerriAI/litellm",
++        credential_attr="litellm_api_key",
++        base_url_attr="litellm_base_url",
++        default_base_url=LITELLM_DEFAULT_BASE,
++        proxy_attr="litellm_proxy",
++        capabilities=("chat", "streaming", "tools", "thinking", "rate_limit"),
++    ),
+     "zai": ProviderDescriptor(
+         provider_id="zai",
+         transport_type="openai_chat",
+diff --git a/providers/defaults.py b/providers/defaults.py
+index a0ec814..9449358 100644
+--- a/providers/defaults.py
++++ b/providers/defaults.py
+@@ -4,6 +4,7 @@ from config.provider_catalog import (
+     DEEPSEEK_ANTHROPIC_DEFAULT_BASE,
+     DEEPSEEK_DEFAULT_BASE,
+     KIMI_DEFAULT_BASE,
++    LITELLM_DEFAULT_BASE,
+     LLAMACPP_DEFAULT_BASE,
+     LMSTUDIO_DEFAULT_BASE,
+     NVIDIA_NIM_DEFAULT_BASE,
+@@ -18,6 +19,7 @@ __all__ = (
+     "DEEPSEEK_ANTHROPIC_DEFAULT_BASE",
+     "DEEPSEEK_DEFAULT_BASE",
+     "KIMI_DEFAULT_BASE",
++    "LITELLM_DEFAULT_BASE",
+     "LLAMACPP_DEFAULT_BASE",
+     "LMSTUDIO_DEFAULT_BASE",
+     "NVIDIA_NIM_DEFAULT_BASE",
+diff --git a/providers/registry.py b/providers/registry.py
+index 518fde6..86f5536 100644
+--- a/providers/registry.py
++++ b/providers/registry.py
+@@ -86,6 +86,12 @@ def _create_opencode(config: ProviderConfig, _settings: Settings) -> BaseProvide
+     return OpenCodeProvider(config)
+ 
+ 
++def _create_litellm(config: ProviderConfig, _settings: Settings) -> BaseProvider:
++    from providers.litellm import LiteLLMProvider
++
++    return LiteLLMProvider(config)
++
++
+ def _create_zai(config: ProviderConfig, _settings: Settings) -> BaseProvider:
+     from providers.zai import ZaiProvider
+ 
+@@ -108,6 +114,7 @@ PROVIDER_FACTORIES: dict[str, ProviderFactory] = {
+     "kimi": _create_kimi,
+     "wafer": _create_wafer,
+     "opencode": _create_opencode,
++    "litellm": _create_litellm,
+     "zai": _create_zai,
+     "fireworks": _create_fireworks,
+ }
