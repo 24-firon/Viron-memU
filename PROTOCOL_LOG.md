@@ -33,3 +33,17 @@
 - **State:** Moving to Phase 2. Docker Containers successfully created/recreated.
 - **Status:** All services (Postgres, vLLM, WebUI) are UP. Phase 2 Infrastructure Live.
 - **Action:** Ready for functional testing and conceptual changes.
+
+## Session: 2026-07-19 — Kanon-Etablierung v1.2 (CDS PILOT-ROLLOUT_18)
+
+### Executed Actions
+
+1.  **Reversibilitaets-Sicherung**: 211 zuvor untracked Dateien committet (`b6a0f2f`) — STORAGE/, IMPORT/, toolkits/, .graphify/, data/, "ANDERER WIN NUTZER"/, 4x .claude-Backups.
+2.  **Zonen-Rename**: `docs/` -> `DOCS/` per git mv, Upstream-Inhalt erhalten (`1068ec9`).
+3.  **Stufe 2 — Templates**: 41 Dateien verteilt (Start-Prompts nach WORKSPACE/handover/, GIT_BASELINE + RECOVERY_PROTOCOL nach Root, 5 Template-Kategorien nach STORAGE/templates/), 0 Kollisionen (`45546e0`).
+4.  **Stufe 2b — Tier-1-Regelset v1.2**: 18 Dateien in .claude/rules/ssot/ (5 neu, 12 Verdikt "uebernehmen", Manifest). Alt-Bestand nach ARCHIVE/ssot-Altbestand-vor-Kanon-v1.2_2026-07-19/ (`6ed8192`). Account-Fix 24-viron -> 24-firon.
+5.  **SEEDED-Geruest**: WORKSPACE/INDEX.md (Board), DOCS/INDEX.md (Router), DOCS/FOLDER_MAP.md, Master-Trio, DOCS/STRUKTUR_MANIFEST.md, Aufraeum-Task T-01.
+
+### Bewusst NICHT angefasst
+
+- 3 VAS-Altlast-Regeln in ssot/ (Aufraeum-Task T-01/A), pgdata/, memU-multi-provider-v1.0.zip, src/memu/embedding/backends/google.py (WIP), .agent/ + .agents/ (fremde Frameworks).
