@@ -2,6 +2,38 @@ memU/
 ├── .agent/
 │   └── workflows/
 │       └── deploy.md
+├── .claude/
+│   ├── hooks/
+│   │   └── inject-context.cjs
+│   ├── rules/
+│   │   └── ssot/
+│   │       ├── 00_docs_storage_definition.md
+│   │       ├── 00_INDEX.md
+│   │       ├── 00_routing_protocol.md
+│   │       ├── 00_skill_matrix.md
+│   │       ├── 00_system_identity.md
+│   │       ├── 10_core_safety.md
+│   │       ├── 10_windows_shell.md
+│   │       ├── 20_architecture_constraints.md
+│   │       ├── 20_dependency_integrity.md
+│   │       ├── 30_behavior.md
+│   │       ├── 30_communication.md
+│   │       ├── 30_sub_agent_prompting.md
+│   │       ├── 30_verification.md
+│   │       ├── 40_git_policy.md
+│   │       ├── 40_naming_convention_fields.md
+│   │       ├── 40_planning.md
+│   │       ├── 40_read_discipline.md
+│   │       ├── 50_script_engineering_standards.md
+│   │       ├── 80_rule_creation.md
+│   │       ├── 81_rule_filesystem.md
+│   │       └── GRUNDREGEL-BUNDLE.md
+│   ├── context-inject.json
+│   ├── context-inject.json.bak_entdopplung_2026-07-14
+│   ├── context-inject.json.bak_native_2026-07-14
+│   ├── context-inject.json.bak_regelstrip_2026-07-14
+│   ├── settings.json
+│   └── settings.json.bak_2026-07-14
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── bug_report.yml
@@ -13,10 +45,6 @@ memU/
 │       ├── build.yml
 │       ├── pr-title.yml
 │       └── release-please.yml
-├── "IMPORT/
-│   └── # Vollst/
-│       └── 303/
-│           └── 244ndiger Recherche-Prompt Memory-Systeme 2026 + Hermes vs. alles.md"
 ├── ANDERER WIN NUTZER/
 │   ├── 1.txt
 │   ├── 2.txt
@@ -64,16 +92,26 @@ memU/
 │       ├── tmpng9th9vc.txt
 │       ├── tmpuq63fs64.txt
 │       └── tmpy94zjd1d.txt
-├── docs/
+├── DESK/
+│   └── TASKS/
+│       ├── active/
+│       │   └── AUFRAEUMEN-NACH-ROLLOUT_2026-07-19_Task.md
+│       ├── 00_Master_Implementation_Plan.md
+│       ├── 00_Master_Task_State.md
+│       └── 00_Master_Task.md
+├── DOCS/
 │   ├── integrations/
 │   │   └── grok.md
 │   ├── providers/
 │   │   └── grok.md
 │   ├── tutorials/
 │   │   └── getting_started.md
+│   ├── FOLDER_MAP.md
+│   ├── INDEX.md
 │   ├── langgraph_integration.md
 │   ├── sealos_use_case.md
-│   └── sqlite.md
+│   ├── sqlite.md
+│   └── STRUKTUR_MANIFEST.md
 ├── examples/
 │   ├── proactive/
 │   │   ├── memory/
@@ -111,6 +149,7 @@ memU/
 │   ├── langgraph_demo.py
 │   └── sealos_support_agent.py
 ├── IMPORT/
+│   ├── # Vollständiger Recherche-Prompt Memory-Systeme 2026 + Hermes vs. alles.md
 │   ├── LiteLLM_Onboarding.md
 │   └── Memory-System Deep-Dive_ memU vs. Mem0 vs. Alterna.md
 ├── pgdata/
@@ -413,7 +452,6 @@ memU/
 │   │   │   ├── 827
 │   │   │   ├── 828
 │   │   │   ├── pg_filenode.map
-│   │   │   ├── pg_internal.init
 │   │   │   └── PG_VERSION
 │   │   ├── 16384/
 │   │   │   ├── 112
@@ -1343,7 +1381,6 @@ memU/
 │   │       ├── 827
 │   │       ├── 828
 │   │       ├── pg_filenode.map
-│   │       ├── pg_internal.init
 │   │       └── PG_VERSION
 │   ├── global/
 │   │   ├── 1213
@@ -1416,6 +1453,8 @@ memU/
 │   │   │   └── 0000
 │   │   └── offsets/
 │   │       └── 0000
+│   ├── pg_stat/
+│   │   └── pgstat.stat
 │   ├── pg_subtrans/
 │   │   └── 0000
 │   ├── pg_wal/
@@ -1427,8 +1466,7 @@ memU/
 │   ├── PG_VERSION
 │   ├── postgresql.auto.conf
 │   ├── postgresql.conf
-│   ├── postmaster.opts
-│   └── postmaster.pid
+│   └── postmaster.opts
 ├── readme/
 │   ├── README_en.md
 │   ├── README_es.md
@@ -1577,6 +1615,50 @@ memU/
 │   │   ├── __init__.py
 │   │   └── _core.pyi
 │   └── lib.rs
+├── STORAGE/
+│   └── templates/
+│       ├── additional/
+│       │   ├── CLAUDE_MD_TEMPLATE.md
+│       │   └── KONSERVIERUNGS_MANIFEST.md
+│       ├── living_files/
+│       │   ├── decision_log.md
+│       │   ├── ideas_future_plans.md
+│       │   ├── implementation_plan.md
+│       │   ├── lessons_learned.md
+│       │   ├── task.md
+│       │   └── walkthrough.md
+│       ├── references/
+│       │   ├── KONSERVIERUNGS_GESETZE.md
+│       │   ├── KONSERVIERUNGS_MANIFEST.md
+│       │   ├── LESELISTE_MECHANIK.md
+│       │   ├── LIVING_FILES_LIFECYCLE.md
+│       │   ├── MILESTONE_GATEWAY.md
+│       │   ├── SESSION_TITEL_SCHEMA.md
+│       │   ├── STEP_1A_PREDECESSOR.md
+│       │   ├── STRUKTUR_WISSENSBASIS.md
+│       │   ├── SYSTEM_INSIGHTS.md
+│       │   ├── TIER_MEMORY.md
+│       │   └── TOKEN_WINDOW_GUARD.md
+│       ├── reports/
+│       │   ├── AUDIT_REPORT.md
+│       │   ├── BRIEFING_REPORT.md
+│       │   ├── DEBUG_REPORT.md
+│       │   ├── FORENSIC_REPORT.md
+│       │   ├── KNOWLEDGE_EXTRACTION_REPORT.md
+│       │   ├── POSTMORTEM_REPORT.md
+│       │   ├── RESEARCH_PROMPT.md
+│       │   ├── RESEARCH_REPORT.md
+│       │   ├── SESSION_HANDOVER.md
+│       │   ├── SUMMARY_REPORT.md
+│       │   └── TTS_SUMMARY.md
+│       └── session_start/
+│           ├── HANDOVER.md
+│           ├── IMPLEMENTATION_PLAN.md
+│           ├── P00_LESELISTE.md
+│           ├── P01_BOOTSTRAP.md
+│           ├── P02_SESSION_INIT.md
+│           ├── SESSION_RITUAL.md
+│           └── WORKSPACE_WALKTHROUGH.md
 ├── tests/
 │   ├── example/
 │   │   └── example_conversation.json
@@ -1615,9 +1697,15 @@ memU/
 │       ├── APPLY.md
 │       ├── CONCEPT.md
 │       ├── HANDOVER-DEPLOYMENT-BUNDLE.md
+│       ├── HANDOVER-DEPLOYMENT-BUNDLE.md.bak_keyrotation_2026-08-26_082005
 │       ├── README.md
 │       ├── RECIPE.md
 │       └── STATUS.md
+├── WORKSPACE/
+│   ├── handover/
+│   │   ├── SESSION_OVERTAKE_PROMPT.md
+│   │   └── SESSION_START_PROMPT.md
+│   └── INDEX.md
 ├── .gitignore
 ├── .graphifyignore
 ├── .pre-commit-config.yaml
@@ -1626,11 +1714,13 @@ memU/
 ├── Cargo.lock
 ├── Cargo.toml
 ├── CHANGELOG.md
+├── CLAUDE.md
 ├── CONTRIBUTING.md
 ├── DECISION_LOG.md
 ├── docker-compose.yml
 ├── env-example.txt
 ├── gemini.md
+├── GIT_BASELINE.md
 ├── LICENSE.txt
 ├── Makefile
 ├── MANIFEST.in
@@ -1644,6 +1734,7 @@ memU/
 ├── pyproject.toml
 ├── README-SETUP.md
 ├── README.md
+├── RECOVERY_PROTOCOL.md
 ├── REPORT.md
 ├── setup.cfg
 ├── setup.sh

@@ -1,4 +1,32 @@
 .agent/workflows/deploy.md
+.claude/context-inject.json
+.claude/context-inject.json.bak_entdopplung_2026-07-14
+.claude/context-inject.json.bak_native_2026-07-14
+.claude/context-inject.json.bak_regelstrip_2026-07-14
+.claude/hooks/inject-context.cjs
+.claude/rules/ssot/00_docs_storage_definition.md
+.claude/rules/ssot/00_INDEX.md
+.claude/rules/ssot/00_routing_protocol.md
+.claude/rules/ssot/00_skill_matrix.md
+.claude/rules/ssot/00_system_identity.md
+.claude/rules/ssot/10_core_safety.md
+.claude/rules/ssot/10_windows_shell.md
+.claude/rules/ssot/20_architecture_constraints.md
+.claude/rules/ssot/20_dependency_integrity.md
+.claude/rules/ssot/30_behavior.md
+.claude/rules/ssot/30_communication.md
+.claude/rules/ssot/30_sub_agent_prompting.md
+.claude/rules/ssot/30_verification.md
+.claude/rules/ssot/40_git_policy.md
+.claude/rules/ssot/40_naming_convention_fields.md
+.claude/rules/ssot/40_planning.md
+.claude/rules/ssot/40_read_discipline.md
+.claude/rules/ssot/50_script_engineering_standards.md
+.claude/rules/ssot/80_rule_creation.md
+.claude/rules/ssot/81_rule_filesystem.md
+.claude/rules/ssot/GRUNDREGEL-BUNDLE.md
+.claude/settings.json
+.claude/settings.json.bak_2026-07-14
 .github/ISSUE_TEMPLATE/bug_report.yml
 .github/ISSUE_TEMPLATE/config.yml
 .github/ISSUE_TEMPLATE/feature_request.yml
@@ -11,7 +39,6 @@
 .graphifyignore
 .pre-commit-config.yaml
 .python-version
-"IMPORT/# Vollst/303/244ndiger Recherche-Prompt Memory-Systeme 2026 + Hermes vs. alles.md"
 AGENT_ORCHESTRATION.md
 ANDERER WIN NUTZER/1.txt
 ANDERER WIN NUTZER/2.txt
@@ -40,6 +67,7 @@ assets/usecase/ai_therapy-0000.jpg
 Cargo.lock
 Cargo.toml
 CHANGELOG.md
+CLAUDE.md
 CONTRIBUTING.md
 data/resources/tmp1eit9ha_.txt
 data/resources/tmp1vuni5ds.txt
@@ -59,13 +87,20 @@ data/resources/tmpng9th9vc.txt
 data/resources/tmpuq63fs64.txt
 data/resources/tmpy94zjd1d.txt
 DECISION_LOG.md
+DESK/TASKS/00_Master_Implementation_Plan.md
+DESK/TASKS/00_Master_Task_State.md
+DESK/TASKS/00_Master_Task.md
+DESK/TASKS/active/AUFRAEUMEN-NACH-ROLLOUT_2026-07-19_Task.md
 docker-compose.yml
-docs/integrations/grok.md
-docs/langgraph_integration.md
-docs/providers/grok.md
-docs/sealos_use_case.md
-docs/sqlite.md
-docs/tutorials/getting_started.md
+DOCS/FOLDER_MAP.md
+DOCS/INDEX.md
+DOCS/integrations/grok.md
+DOCS/langgraph_integration.md
+DOCS/providers/grok.md
+DOCS/sealos_use_case.md
+DOCS/sqlite.md
+DOCS/STRUKTUR_MANIFEST.md
+DOCS/tutorials/getting_started.md
 env-example.txt
 examples/example_1_conversation_memory.py
 examples/example_2_skill_extraction.py
@@ -94,6 +129,8 @@ examples/resources/logs/log2.txt
 examples/resources/logs/log3.txt
 examples/sealos_support_agent.py
 gemini.md
+GIT_BASELINE.md
+IMPORT/# Vollständiger Recherche-Prompt Memory-Systeme 2026 + Hermes vs. alles.md
 IMPORT/LiteLLM_Onboarding.md
 IMPORT/Memory-System Deep-Dive_ memU vs. Mem0 vs. Alterna.md
 LICENSE.txt
@@ -400,7 +437,6 @@ pgdata/base/1/826
 pgdata/base/1/827
 pgdata/base/1/828
 pgdata/base/1/pg_filenode.map
-pgdata/base/1/pg_internal.init
 pgdata/base/1/PG_VERSION
 pgdata/base/16384/112
 pgdata/base/16384/113
@@ -1327,7 +1363,6 @@ pgdata/base/5/826
 pgdata/base/5/827
 pgdata/base/5/828
 pgdata/base/5/pg_filenode.map
-pgdata/base/5/pg_internal.init
 pgdata/base/5/PG_VERSION
 pgdata/global/1213
 pgdata/global/1213_fsm
@@ -1397,6 +1432,7 @@ pgdata/pg_ident.conf
 pgdata/pg_logical/replorigin_checkpoint
 pgdata/pg_multixact/members/0000
 pgdata/pg_multixact/offsets/0000
+pgdata/pg_stat/pgstat.stat
 pgdata/pg_subtrans/0000
 pgdata/PG_VERSION
 pgdata/pg_wal/000000010000000000000001
@@ -1404,7 +1440,6 @@ pgdata/pg_xact/0000
 pgdata/postgresql.auto.conf
 pgdata/postgresql.conf
 pgdata/postmaster.opts
-pgdata/postmaster.pid
 proactive.py
 PROJECT_RULES.md
 PROTOCOL_LOG.md
@@ -1417,6 +1452,7 @@ readme/README_fr.md
 readme/README_ja.md
 readme/README_ko.md
 readme/README_zh.md
+RECOVERY_PROTOCOL.md
 REPORT.md
 setup.cfg
 setup.sh
@@ -1535,6 +1571,43 @@ src/memu/workflow/interceptor.py
 src/memu/workflow/pipeline.py
 src/memu/workflow/runner.py
 src/memu/workflow/step.py
+STORAGE/templates/additional/CLAUDE_MD_TEMPLATE.md
+STORAGE/templates/additional/KONSERVIERUNGS_MANIFEST.md
+STORAGE/templates/living_files/decision_log.md
+STORAGE/templates/living_files/ideas_future_plans.md
+STORAGE/templates/living_files/implementation_plan.md
+STORAGE/templates/living_files/lessons_learned.md
+STORAGE/templates/living_files/task.md
+STORAGE/templates/living_files/walkthrough.md
+STORAGE/templates/references/KONSERVIERUNGS_GESETZE.md
+STORAGE/templates/references/KONSERVIERUNGS_MANIFEST.md
+STORAGE/templates/references/LESELISTE_MECHANIK.md
+STORAGE/templates/references/LIVING_FILES_LIFECYCLE.md
+STORAGE/templates/references/MILESTONE_GATEWAY.md
+STORAGE/templates/references/SESSION_TITEL_SCHEMA.md
+STORAGE/templates/references/STEP_1A_PREDECESSOR.md
+STORAGE/templates/references/STRUKTUR_WISSENSBASIS.md
+STORAGE/templates/references/SYSTEM_INSIGHTS.md
+STORAGE/templates/references/TIER_MEMORY.md
+STORAGE/templates/references/TOKEN_WINDOW_GUARD.md
+STORAGE/templates/reports/AUDIT_REPORT.md
+STORAGE/templates/reports/BRIEFING_REPORT.md
+STORAGE/templates/reports/DEBUG_REPORT.md
+STORAGE/templates/reports/FORENSIC_REPORT.md
+STORAGE/templates/reports/KNOWLEDGE_EXTRACTION_REPORT.md
+STORAGE/templates/reports/POSTMORTEM_REPORT.md
+STORAGE/templates/reports/RESEARCH_PROMPT.md
+STORAGE/templates/reports/RESEARCH_REPORT.md
+STORAGE/templates/reports/SESSION_HANDOVER.md
+STORAGE/templates/reports/SUMMARY_REPORT.md
+STORAGE/templates/reports/TTS_SUMMARY.md
+STORAGE/templates/session_start/HANDOVER.md
+STORAGE/templates/session_start/IMPLEMENTATION_PLAN.md
+STORAGE/templates/session_start/P00_LESELISTE.md
+STORAGE/templates/session_start/P01_BOOTSTRAP.md
+STORAGE/templates/session_start/P02_SESSION_INIT.md
+STORAGE/templates/session_start/SESSION_RITUAL.md
+STORAGE/templates/session_start/WORKSPACE_WALKTHROUGH.md
 test_fallback_smoke.py
 test-00-loop.py
 test-01-database.py
@@ -1562,6 +1635,7 @@ toolkits/litellm-provider/docs/SUBAGENT-BRIEFING-M2C.md
 toolkits/litellm-provider/docs/SUBAGENT-BRIEFING-M2D.md
 toolkits/litellm-provider/docs/SUBAGENT-BRIEFING-M3A.md
 toolkits/litellm-provider/HANDOVER-DEPLOYMENT-BUNDLE.md
+toolkits/litellm-provider/HANDOVER-DEPLOYMENT-BUNDLE.md.bak_keyrotation_2026-08-26_082005
 toolkits/litellm-provider/patches/M1-scaffolding.patch
 toolkits/litellm-provider/patches/M2-implementation.patch
 toolkits/litellm-provider/patches/M2c-settings.patch
@@ -1572,3 +1646,6 @@ toolkits/litellm-provider/RECIPE.md
 toolkits/litellm-provider/STATUS.md
 toolkits/litellm-provider/tests/verify-m1.md
 uv.lock
+WORKSPACE/handover/SESSION_OVERTAKE_PROMPT.md
+WORKSPACE/handover/SESSION_START_PROMPT.md
+WORKSPACE/INDEX.md

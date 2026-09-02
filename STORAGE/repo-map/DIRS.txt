@@ -1,21 +1,25 @@
 .agent/
 .agent/workflows/
+.claude/
+.claude/hooks/
+.claude/rules/
+.claude/rules/ssot/
 .github/
 .github/ISSUE_TEMPLATE/
 .github/workflows/
-"IMPORT/
-"IMPORT/# Vollst/
-"IMPORT/# Vollst/303/
 ANDERER WIN NUTZER/
 assets/
 assets/partners/
 assets/usecase/
 data/
 data/resources/
-docs/
-docs/integrations/
-docs/providers/
-docs/tutorials/
+DESK/
+DESK/TASKS/
+DESK/TASKS/active/
+DOCS/
+DOCS/integrations/
+DOCS/providers/
+DOCS/tutorials/
 examples/
 examples/proactive/
 examples/proactive/memory/
@@ -38,6 +42,7 @@ pgdata/pg_logical/
 pgdata/pg_multixact/
 pgdata/pg_multixact/members/
 pgdata/pg_multixact/offsets/
+pgdata/pg_stat/
 pgdata/pg_subtrans/
 pgdata/pg_wal/
 pgdata/pg_xact/
@@ -68,6 +73,13 @@ src/memu/prompts/preprocess/
 src/memu/prompts/retrieve/
 src/memu/utils/
 src/memu/workflow/
+STORAGE/
+STORAGE/templates/
+STORAGE/templates/additional/
+STORAGE/templates/living_files/
+STORAGE/templates/references/
+STORAGE/templates/reports/
+STORAGE/templates/session_start/
 tests/
 tests/example/
 tests/integrations/
@@ -78,3 +90,5 @@ toolkits/litellm-provider/
 toolkits/litellm-provider/docs/
 toolkits/litellm-provider/patches/
 toolkits/litellm-provider/tests/
+WORKSPACE/
+WORKSPACE/handover/

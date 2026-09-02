@@ -2,15 +2,23 @@ memU/
 ├── .agent/
 │   └── workflows/
 │       └── … (1 Dateien)
+├── .claude/
+│   ├── hooks/
+│   │   └── … (1 Dateien)
+│   ├── rules/
+│   │   └── ssot/
+│   │       └── … (21 Dateien)
+│   ├── context-inject.json
+│   ├── context-inject.json.bak_entdopplung_2026-07-14
+│   ├── context-inject.json.bak_native_2026-07-14
+│   ├── context-inject.json.bak_regelstrip_2026-07-14
+│   ├── settings.json
+│   └── settings.json.bak_2026-07-14
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   └── … (5 Dateien)
 │   └── workflows/
 │       └── … (3 Dateien)
-├── "IMPORT/
-│   └── # Vollst/
-│       └── 303/
-│           └── … (1 Dateien)
 ├── ANDERER WIN NUTZER/
 │   ├── 1.txt
 │   ├── 2.txt
@@ -31,16 +39,24 @@ memU/
 ├── data/
 │   └── resources/
 │       └── … (17 Dateien)
-├── docs/
+├── DESK/
+│   └── TASKS/
+│       ├── active/
+│       │   └── … (1 Dateien)
+│       └── … (3 Dateien)
+├── DOCS/
 │   ├── integrations/
 │   │   └── … (1 Dateien)
 │   ├── providers/
 │   │   └── … (1 Dateien)
 │   ├── tutorials/
 │   │   └── … (1 Dateien)
+│   ├── FOLDER_MAP.md
+│   ├── INDEX.md
 │   ├── langgraph_integration.md
 │   ├── sealos_use_case.md
-│   └── sqlite.md
+│   ├── sqlite.md
+│   └── STRUKTUR_MANIFEST.md
 ├── examples/
 │   ├── proactive/
 │   │   ├── memory/
@@ -68,18 +84,19 @@ memU/
 │   ├── langgraph_demo.py
 │   └── sealos_support_agent.py
 ├── IMPORT/
+│   ├── # Vollständiger Recherche-Prompt Memory-Systeme 2026 + Hermes vs. alles.md
 │   ├── LiteLLM_Onboarding.md
 │   └── Memory-System Deep-Dive_ memU vs. Mem0 vs. Alterna.md
 ├── pgdata/
 │   ├── base/
 │   │   ├── 1/
-│   │   │   └── … (299 Dateien)
+│   │   │   └── … (298 Dateien)
 │   │   ├── 16384/
 │   │   │   └── … (330 Dateien)
 │   │   ├── 4/
 │   │   │   └── … (298 Dateien)
 │   │   └── 5/
-│   │       └── … (299 Dateien)
+│   │       └── … (298 Dateien)
 │   ├── global/
 │   │   └── … (63 Dateien)
 │   ├── pg_logical/
@@ -89,6 +106,8 @@ memU/
 │   │   │   └── … (1 Dateien)
 │   │   └── offsets/
 │   │       └── … (1 Dateien)
+│   ├── pg_stat/
+│   │   └── … (1 Dateien)
 │   ├── pg_subtrans/
 │   │   └── … (1 Dateien)
 │   ├── pg_wal/
@@ -100,8 +119,7 @@ memU/
 │   ├── PG_VERSION
 │   ├── postgresql.auto.conf
 │   ├── postgresql.conf
-│   ├── postmaster.opts
-│   └── postmaster.pid
+│   └── postmaster.opts
 ├── readme/
 │   ├── README_en.md
 │   ├── README_es.md
@@ -161,6 +179,18 @@ memU/
 │   │   │   └── … (5 Dateien)
 │   │   └── … (2 Dateien)
 │   └── lib.rs
+├── STORAGE/
+│   └── templates/
+│       ├── additional/
+│       │   └── … (2 Dateien)
+│       ├── living_files/
+│       │   └── … (6 Dateien)
+│       ├── references/
+│       │   └── … (11 Dateien)
+│       ├── reports/
+│       │   └── … (11 Dateien)
+│       └── session_start/
+│           └── … (7 Dateien)
 ├── tests/
 │   ├── example/
 │   │   └── … (1 Dateien)
@@ -186,7 +216,11 @@ memU/
 │       │   └── … (5 Dateien)
 │       ├── tests/
 │       │   └── … (1 Dateien)
-│       └── … (6 Dateien)
+│       └── … (7 Dateien)
+├── WORKSPACE/
+│   ├── handover/
+│   │   └── … (2 Dateien)
+│   └── INDEX.md
 ├── .gitignore
 ├── .graphifyignore
 ├── .pre-commit-config.yaml
@@ -195,11 +229,13 @@ memU/
 ├── Cargo.lock
 ├── Cargo.toml
 ├── CHANGELOG.md
+├── CLAUDE.md
 ├── CONTRIBUTING.md
 ├── DECISION_LOG.md
 ├── docker-compose.yml
 ├── env-example.txt
 ├── gemini.md
+├── GIT_BASELINE.md
 ├── LICENSE.txt
 ├── Makefile
 ├── MANIFEST.in
@@ -213,6 +249,7 @@ memU/
 ├── pyproject.toml
 ├── README-SETUP.md
 ├── README.md
+├── RECOVERY_PROTOCOL.md
 ├── REPORT.md
 ├── setup.cfg
 ├── setup.sh
