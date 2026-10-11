@@ -20,4 +20,12 @@ class GoogleEmbeddingBackend(EmbeddingBackend):
         }
 
     def parse_embedding_response(self, data: dict[str, Any]) -> list[list[float]]:
-        return [item.get("embedding", {}).get("values", []) for item in data.get("embeddings", [])]
+        results: list[list[float]] = []
+        for item in data.get("embeddings", []):
+            if "values" in item:
+                results.append(item["values"])
+            elif "embedding" in item and isinstance(item["embedding"], dict):
+                results.append(item["embedding"].get("values", []))
+            else:
+                results.append([])
+        return results

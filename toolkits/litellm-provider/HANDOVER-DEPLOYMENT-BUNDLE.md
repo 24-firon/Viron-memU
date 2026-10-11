@@ -92,7 +92,7 @@ Schaue dir die **laufende LiteLLM-Instanz** an, um die aktuelle Config zu verste
 
 - **Docker-Container:** ID `9623182fc0a3` (laut Aufzeichnungen), Image `ghcr.io/berriai/litellm:v1.85.0`
 - **Port:** 4000
-- **Master-Key:** `sk-litellm-factory-zT4nP7vR2mQ9xL5jW8bE3sH6fA1cD0gUyK` (aus dem `factory-litellm-router` Setup)
+- **Master-Key:** `<LITELLM_MASTER_KEY - siehe C:\Workspace\Repos\LiteLLM\.env>` (aus dem `factory-litellm-router` Setup)
 - **22 Modelle** sind live erreichbar
 - **Bekannte Beispiel-Modelle aus der bisherigen Arbeit:** `gpt-4o-mini`, `claude-3-5-sonnet`, `minimax-m3`, `deepseek-*`, plus wahrscheinlich OpenRouter-, NVIDIA-NIM-, Ollama-Modelle
 
